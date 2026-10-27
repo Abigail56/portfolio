@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env
+.env*.local
+npm-debug.log*
+.DS_Store
+test-results/
+
+# Original photos dropped into the project folder (the site uses public/images/profile.jpg)
+/WhatsApp Image*

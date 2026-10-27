@@ -1,0 +1,427 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------------------------------------
+   Design tokens
+   A light, cool-toned theme by default and a dark navy theme from the toggle, with one cobalt accent used for
+   primary actions, links and selected states only. Every colour is defined once per theme; components only use the Tailwind names
+   mapped in @theme below (bg-surface, text-muted, border-line…). tests/contrast.test.ts checks them.
+   ------------------------------------------------------------------------------------------------ */
+
+:root {
+  color-scheme: light;
+  --bg: #f4f7fc;
+  --surface: #ffffff;
+  --surface-2: #eef2f9;
+  --surface-3: #e4eaf4;
+  --line: #dce3ee;
+  --line-strong: #c2cddf;
+  --fg: #192235;
+  --muted: #586780;
+  --subtle: #5c6b84;
+  --accent: #3549d8;
+  --accent-solid: #3549d8;
+  --accent-solid-hover: #293bbe;
+  --accent-soft: #e9edff;
+  --accent-line: rgb(53 73 216 / 0.35);
+  --on-accent: #ffffff;
+  --cyan: #0e7490;
+  --cyan-soft: rgb(14 107 119 / 0.08);
+  --success: #157a3a;
+  --success-soft: rgb(21 122 58 / 0.08);
+  --warning: #9a5807;
+  --warning-soft: rgb(154 88 7 / 0.08);
+  --danger: #b4233c;
+  --danger-soft: rgb(180 35 60 / 0.06);
+  --code-bg: #111827;
+  --code-fg: #e2e8f0;
+  --brand-1: #3549d8;
+  --brand-2: #5568e0;
+  --brand-3: #0e7fb8;
+  --brand-4: #c9851a;
+  --brand-5: #0f8a7e;
+  --shadow-sm: 0 1px 2px rgb(25 34 53 / 0.05);
+  --shadow-md: 0 1px 2px rgb(25 34 53 / 0.04), 0 8px 24px -12px rgb(25 34 53 / 0.12);
+  --shadow-lg: 0 1px 2px rgb(25 34 53 / 0.05), 0 24px 48px -24px rgb(25 34 53 / 0.22);
+  --glass-line: rgb(25 34 53 / 0.09);
+  --glass-highlight: rgb(255 255 255 / 0.7);
+  --glow: rgb(53 73 216 / 0.3);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #080b12;
+  --surface: #101624;
+  --surface-2: #151d2d;
+  --surface-3: #1b2438;
+  --line: rgb(255 255 255 / 0.09);
+  --line-strong: rgb(255 255 255 / 0.16);
+  --fg: #f5f7fc;
+  --muted: #a2aec2;
+  --subtle: #7e8aa1;
+  --accent: #7792ff;
+  --accent-solid: #4566ec;
+  --accent-solid-hover: #3b5ce3;
+  --accent-soft: rgb(91 124 250 / 0.12);
+  --accent-line: rgb(119 146 255 / 0.45);
+  --on-accent: #ffffff;
+  --cyan: #67d4e8;
+  --cyan-soft: rgb(108 198 210 / 0.08);
+  --success: #4ade80;
+  --success-soft: rgb(92 207 149 / 0.1);
+  --warning: #fbbf24;
+  --warning-soft: rgb(226 180 90 / 0.1);
+  --danger: #fb7185;
+  --danger-soft: rgb(240 138 138 / 0.1);
+  --code-bg: #05070c;
+  --code-fg: #e2e8f0;
+  --brand-1: #5b7cfa;
+  --brand-2: #7792ff;
+  --brand-3: #5fa8f5;
+  --brand-4: #a9b8ff;
+  --brand-5: #4fc3d6;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.55);
+  --shadow-lg: 0 1px 2px rgb(0 0 0 / 0.3), 0 24px 56px -28px rgb(0 0 0 / 0.7);
+  --glass-line: rgb(255 255 255 / 0.09);
+  --glass-highlight: rgb(255 255 255 / 0.04);
+  --glow: rgb(69 102 236 / 0.4);
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-solid-hover: var(--accent-solid-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-on-accent: var(--on-accent);
+  --color-cyan: var(--cyan);
+  --color-cyan-soft: var(--cyan-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-code-bg: var(--code-bg);
+  --color-code-fg: var(--code-fg);
+  --color-brand-1: var(--brand-1);
+  --color-brand-2: var(--brand-2);
+  --color-brand-3: var(--brand-3);
+  --color-brand-4: var(--brand-4);
+  --color-brand-5: var(--brand-5);
+  --color-ink-fg: #f2f4fb;
+  --color-ink-muted: #b6bed6;
+  --color-ink-accent: #b4bfff;
+  --color-ink-line: rgb(255 255 255 / 0.12);
+  --color-ink-line-strong: rgb(255 255 255 / 0.3);
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 14px;
+  --radius-3xl: 16px;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pop: pop 420ms var(--ease-out) both;
+  --animate-fade-up: fade-up 240ms var(--ease-out) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.015);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+    /* 16px root: sizes below are set in rem against it, so 1rem = 16px everywhere. */
+    font-size: 100%;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-size: 1rem;
+    line-height: 1.65;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv11", "ss01", "ss03";
+    font-optical-sizing: auto;
+  }
+  ::selection {
+    background: rgb(91 124 250 / 0.3);
+    color: var(--fg);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* @theme inline substitutes its values instead of emitting --font-*, so base styles use the font variables directly. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  code,
+  kbd,
+  pre {
+    font-family: var(--font-code), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    /* Quoted source should look exactly as written: no "->" turning into an arrow glyph. */
+    font-variant-ligatures: none;
+  }
+  .font-mono {
+    font-variant-ligatures: none;
+  }
+}
+
+@layer components {
+  /* Main column: 1200px wide, with side padding of 20px (phones), 24px (tablets), 32px (laptops), 40px (desktops). */
+  .container-page {
+    width: 100%;
+    max-width: calc(1200px + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    --gutter: 20px;
+  }
+  @media (min-width: 640px) {
+    .container-page {
+      --gutter: 24px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-page {
+      --gutter: 32px;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-page {
+      --gutter: 40px;
+    }
+  }
+
+  /* Type scale. Sizes are fluid between phone and desktop with clamp(), so there are no jumps at breakpoints.
+     Desktop targets: hero 60, section 38, project 28, secondary 24, card 17, body 16, meta 13, tags 12. */
+  .text-display {
+    font-size: clamp(2.5rem, 1.75rem + 2.6vw, 3.75rem); /* 40px → 60px */
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+    font-weight: 620;
+  }
+  .text-title {
+    font-size: clamp(1.8125rem, 1.5rem + 1vw, 2.375rem); /* 29px → 38px */
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+  .text-project {
+    font-size: clamp(1.4375rem, 1.27rem + 0.55vw, 1.75rem); /* 23px → 28px */
+    line-height: 1.2;
+    letter-spacing: -0.022em;
+    font-weight: 600;
+  }
+  .text-subtitle {
+    font-size: clamp(1.25rem, 1.12rem + 0.45vw, 1.5rem); /* 20px → 24px */
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  .text-card {
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.35;
+    letter-spacing: -0.012em;
+    font-weight: 600;
+  }
+  .text-lead {
+    font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem); /* 16px → 18px */
+    line-height: 1.65;
+    letter-spacing: -0.006em;
+  }
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .text-meta {
+    font-size: 0.8125rem; /* 13px */
+    line-height: 1.5;
+  }
+  /* Long reading passages: about 65 characters per line. */
+  .measure {
+    max-width: 65ch;
+  }
+
+  /* Vertical rhythm between major sections: 64px on phones, 96px on desktops. */
+  .section-gap {
+    row-gap: clamp(4rem, 2.8rem + 3.6vw, 6rem);
+  }
+
+  /* Small section label: uppercase, tracked out, in the accent colour. */
+  .eyebrow {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  /* Text link with an underline that appears on hover. */
+  .link {
+    color: var(--accent);
+    text-underline-offset: 3px;
+  }
+  .link:hover {
+    text-decoration-line: underline;
+  }
+  /* A text link with a trailing arrow that nudges on hover: "Case study →". */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--fg);
+    transition: color 150ms;
+  }
+  .link-arrow:hover {
+    color: var(--accent);
+  }
+  .link-arrow svg {
+    transition: transform 200ms var(--ease-out);
+  }
+  .link-arrow:hover svg {
+    transform: translateX(2px);
+  }
+  /* Kept for older markup: a plain accent colour, not a gradient. */
+  .text-gradient {
+    color: var(--accent);
+  }
+  .bg-brand-gradient {
+    background-color: var(--accent-solid);
+  }
+  /* The standard card: a solid surface one step above the page and a fine border. No blur, no glow. */
+  .glass-card,
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .glow {
+    box-shadow: none;
+  }
+  /* A technology tag. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    height: 1.625rem;
+    padding-inline: 0.5625rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background-color: var(--surface-2);
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.005em;
+    white-space: nowrap;
+  }
+  /* A dark panel with its own fixed colours, the same in both themes: VoxPlay's card. */
+  .panel-ink {
+    background-color: #121833;
+    background-image: radial-gradient(90% 70% at 100% 0%, rgb(124 92 255 / 0.16), transparent 65%);
+    border: 1px solid #262e52;
+    color: #f2f4fb;
+  }
+  .tag-ink {
+    border-color: rgb(255 255 255 / 0.14);
+    background-color: rgb(255 255 255 / 0.06);
+    color: #d3d8ea;
+  }
+  .prose-body > * + * {
+    margin-top: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 500ms var(--ease-out),
+      transform 500ms var(--ease-out);
+  }
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
