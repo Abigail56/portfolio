@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, BookOpenCheck, FileText, ListChecks, Mail, ShieldAlert } from "lucide-react";
+import { ArrowRight, FileText, Mail } from "lucide-react";
 import { Seo } from "@/components/layout/Seo";
 import { Hero } from "@/components/home/Hero";
+import { SkillGroups } from "@/components/home/SkillGroups";
 import { CopyButton } from "@/components/contact/CopyButton";
 import { LabCards } from "@/components/lab/LabCards";
 import { FlagshipProject, ProjectCard, RealtimeProject } from "@/components/projects/ProjectCard";
@@ -9,13 +10,25 @@ import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container, SectionHeader } from "@/components/ui/Section";
 import { getProject, homeAdditionalSlugs } from "@/content/projects";
-import { aboutSummary, aboutFacts, principles } from "@/content/profile";
+import { aboutSummary, aboutFacts } from "@/content/profile";
 import { site } from "@/config/site";
 
 const routebridge = getProject("routebridge")!;
 const voxplay = getProject("voxplay")!;
 const additional = homeAdditionalSlugs.map((slug) => getProject(slug)!);
-const principleIcons = [ListChecks, ShieldAlert, BookOpenCheck];
+
+// Structured data for search engines: only facts that appear on the page.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.person.name,
+  jobTitle: site.person.role,
+  email: `mailto:${site.contact.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "Port Harcourt", addressCountry: "NG" },
+  sameAs: [site.links.github, site.links.linkedin],
+  ...(site.url && { url: site.url }),
+  ...(site.url && site.photo.src && { image: `${site.url}${site.photo.src}` }),
+};
 
 const contactLink =
   "group flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3.5 text-sm font-medium text-fg transition-colors hover:border-accent-line hover:bg-surface-2";
@@ -23,7 +36,7 @@ const contactLink =
 export default function OverviewPage() {
   return (
     <>
-      <Seo />
+      <Seo jsonLd={personJsonLd} />
       <Hero />
 
       <Container className="section-gap grid grid-cols-[minmax(0,1fr)]">
@@ -62,41 +75,6 @@ export default function OverviewPage() {
           </ul>
         </section>
 
-        <section aria-labelledby="principles-title" id="principles" className="scroll-mt-24">
-          <SectionHeader
-            id="principles-title"
-            eyebrow="How I work"
-            title="Engineering principles"
-            action={
-              <Link href="/engineering" className="link-arrow">
-                Engineering notes
-                <ArrowRight aria-hidden className="size-4" />
-              </Link>
-            }
-          />
-          <ol className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-3 lg:mt-10">
-            {principles.map((p, i) => {
-              const Icon = principleIcons[i % principleIcons.length]!;
-              return (
-                <li key={p.title} data-reveal style={{ transitionDelay: `${i * 80}ms` }} className="card flex flex-col rounded-xl p-6">
-                  <span className="grid size-10 place-items-center rounded-lg bg-accent-soft text-accent">
-                    <Icon aria-hidden className="size-5" />
-                  </span>
-                  <h3 className="text-card mt-5 text-fg">{p.title}</h3>
-                  <p className="mt-2 text-[0.9375rem] leading-[1.65] text-muted">{p.detail}</p>
-                  <div className="mt-auto pt-5">
-                    <p className="text-meta border-t border-line pt-4 text-muted">
-                      <Link href={p.evidence.href} className="underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">
-                        {p.evidence.text}
-                      </Link>
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
-
         <section aria-labelledby="about-title" id="about" className="scroll-mt-24">
           <div data-reveal className="grid grid-cols-[minmax(0,1fr)] gap-8 border-t border-line pt-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
             <div>
@@ -127,12 +105,22 @@ export default function OverviewPage() {
           </div>
         </section>
 
+        <section aria-labelledby="skills-title" id="skills" className="scroll-mt-24">
+          <SectionHeader
+            id="skills-title"
+            eyebrow="Technical skills"
+            title="What I build with"
+            lead="The technologies behind the projects above, grouped by where they sit in a product."
+          />
+          <SkillGroups className="mt-8 lg:mt-10" />
+        </section>
+
         <section aria-labelledby="lab-title" id="lab" className="scroll-mt-24">
           <SectionHeader
             id="lab-title"
-            eyebrow="The Lab"
-            title="Small experiments"
-            lead="Two short browser games: logic and debugging puzzles, and a mini version of VoxPlay's quiz. No sign-up, nothing stored on a server."
+            eyebrow="Interactive Lab"
+            title="Experiments & play"
+            lead="A small, separate corner of the site: two short browser games, one built from logic and debugging puzzles and one a mini version of VoxPlay's quiz. No sign-up; nothing is stored on a server."
             action={
               <Link href="/playground" className="link-arrow">
                 Everything in the Lab

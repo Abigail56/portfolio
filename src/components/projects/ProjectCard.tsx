@@ -25,10 +25,10 @@ const core = (project: Project) => project.coreStack ?? project.stack.slice(0, 5
 
 /**
  * The flagship project (RouteBridge): summary and links beside a real screenshot, then its engineering highlights and
- * the delivery lifecycle drawn from the code. Only the title, the screenshot and the links are links; the card itself
- * isn't, so each link stays independently reachable.
+ * optionally the delivery lifecycle drawn from the code (`showFlow`; the home page leaves it to the case study). Only the
+ * title, the screenshot and the links are links; the card itself isn't, so each link stays independently reachable.
  */
-export function FlagshipProject({ project, eager }: { project: Project; eager?: boolean }) {
+export function FlagshipProject({ project, eager, showFlow }: { project: Project; eager?: boolean; showFlow?: boolean }) {
   const href = `/projects/${project.slug}`;
   const flow = project.caseStudy.flows?.[0];
   return (
@@ -79,7 +79,7 @@ export function FlagshipProject({ project, eager }: { project: Project; eager?: 
         </ul>
       )}
 
-      {flow && (
+      {showFlow && flow && (
         <div className="border-t border-line bg-surface-2 px-5 py-6 sm:px-8 lg:px-10">
           <p className="text-meta mb-3 font-semibold text-fg">{flow.title}</p>
           <FlowDiagram flow={flow} compact />
@@ -178,7 +178,7 @@ export function RealtimeProject({ project }: { project: Project }) {
           <p className="text-meta mt-5 flex items-start gap-2 text-ink-muted">
             <span aria-hidden className="mt-[0.4rem] size-2 shrink-0 rounded-full border border-ink-muted" />
             <span>
-              <span className="font-medium text-ink-fg">{statusLabels[project.status]}.</span> Runs locally with Docker Compose; no live demo.
+              <span className="font-medium text-ink-fg">{statusLabels[project.status]}.</span> Runs locally with Docker Compose; no public deployment yet.
             </span>
           </p>
         </div>

@@ -2,7 +2,7 @@ import type { SkillGroup, TimelineEntry } from "@/lib/types";
 
 // About-page copy. Written from my CV; edit freely, it is rendered paragraph by paragraph.
 export const aboutParagraphs: string[] = [
-  "I'm a full-stack software engineer in Port Harcourt, currently training with the Africa Plan Foundation. I build complete products: the database schema, the API around it, and the interface people use.",
+  "I'm a full-stack software engineer in Port Harcourt, currently training with the Africa Plan Foundation. I build complete products: the database schema, the API around it, and the interface people use, and I care that they're secure, maintainable and work well on any screen.",
   "Before software, I studied Building Technology at ESUT and worked in construction site management, which taught me to plan carefully and document clearly. I bring the same habits to code: define the rules first, test them, and leave the work easy for the next person to change.",
 ];
 
@@ -28,7 +28,7 @@ export const principles: { title: string; detail: string; evidence: { text: stri
 export const skillGroups: SkillGroup[] = [
   {
     id: "frontend",
-    label: "Frontend",
+    label: "Frontend Development",
     summary: "Interfaces built from typed components, with responsive layouts and server state handled properly.",
     skills: [
       { name: "React", projects: ["routebridge", "voxplay", "votingui-nextjs", "iotc-landing-page"] },
@@ -46,7 +46,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "backend",
-    label: "Backend",
+    label: "Backend Development",
     summary: "REST APIs with explicit contracts, real-time updates, and access control at every route.",
     skills: [
       { name: "Python", projects: ["routebridge", "voxplay"] },
@@ -60,7 +60,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "database",
-    label: "Database",
+    label: "Databases & Data Management",
     summary: "Relational models that enforce the business rules, with migrations and caching around them.",
     skills: [
       { name: "PostgreSQL", projects: ["routebridge", "voxplay"] },
@@ -75,16 +75,25 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "tools",
-    label: "Tools & quality",
-    summary: "The tooling I use to ship, test and run software.",
+    label: "Tools & Workflow",
+    summary: "Version control, containers and the environment I build in every day.",
     skills: [
       { name: "Git & GitHub" },
       { name: "Docker & Docker Compose", projects: ["routebridge", "voxplay"] },
+      { name: "Linux" },
+      { name: "VS Code" },
+    ],
+  },
+  {
+    id: "testing",
+    label: "Testing & Deployment",
+    summary: "Automated tests at the unit, integration and browser level, and the hosts my live projects run on.",
+    skills: [
       { name: "Pytest", projects: ["routebridge", "voxplay"] },
       { name: "Vitest", projects: ["routebridge"] },
       { name: "Playwright", projects: ["routebridge"] },
-      { name: "Linux" },
-      { name: "VS Code" },
+      { name: "Vercel", projects: ["votingui-nextjs", "iotc-landing-page"] },
+      { name: "Render", projects: ["routebridge"] },
     ],
   },
 ];
@@ -141,7 +150,7 @@ export const languages = [
 
 /** The short introduction in the home page's About section. Every fact comes from my CV. */
 export const aboutSummary: string[] = [
-  "I'm interested in how thoughtful interfaces and reliable backend systems come together to solve practical problems. My work spans frontend development, API design, data modelling and interactive applications.",
+  "I'm interested in how thoughtful interfaces and reliable backend systems come together to solve practical problems. My work spans responsive frontends, API design, data modelling and real-time features, with security and maintainability treated as part of the product rather than an afterthought.",
   "I'm training as a software engineer with the Africa Plan Foundation. Before software, I studied Building Technology and worked in construction site management, where I learnt to plan carefully and document clearly. I value clear reasoning, maintainable code, and understanding how a system behaves when real people use it.",
 ];
 

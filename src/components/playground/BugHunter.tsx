@@ -76,7 +76,7 @@ export function BugHunter() {
 
   if (finished) {
     return (
-      <div className="mx-auto max-w-xl rounded-xl glass-card p-6 text-center shadow-sm sm:p-8" aria-live="polite">
+      <div className="mx-auto max-w-xl rounded-xl card p-6 text-center shadow-sm sm:p-8" aria-live="polite">
         <p className="font-mono text-xs uppercase tracking-[0.08em] text-subtle">Found on the first try</p>
         <p className="mt-2 text-5xl font-semibold text-fg">
           {firstTry}
@@ -108,7 +108,7 @@ export function BugHunter() {
         <span className="font-mono text-subtle">First-try finds {firstTry}</span>
       </div>
 
-      <div className="rounded-xl glass-card p-5 shadow-sm sm:p-6">
+      <div className="rounded-xl card p-5 shadow-sm sm:p-6">
         <h2 ref={titleRef} tabIndex={-1} className="text-lg font-semibold text-fg outline-none sm:text-xl">
           {challenge.title}
         </h2>

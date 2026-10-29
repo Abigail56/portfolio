@@ -50,7 +50,7 @@ export default function EngineeringPage() {
           <ul className="flex flex-wrap gap-2 text-sm">
             {engineeringTopics.map((t) => (
               <li key={t.id}>
-                <a href={`#${t.id}`} className="inline-flex rounded-lg glass-card px-3 py-1.5 text-muted shadow-sm transition-colors hover:border-accent-line hover:text-fg">
+                <a href={`#${t.id}`} className="inline-flex rounded-lg card px-3 py-1.5 text-muted shadow-sm transition-colors hover:border-accent-line hover:text-fg">
                   {t.title}
                 </a>
               </li>

@@ -49,7 +49,7 @@ export default function ContactPage() {
             {channels.map((c) => (
               <div
                 key={c.label}
-                className="group relative flex items-center gap-4 rounded-xl glass-card p-4 shadow-sm transition-[border-color,box-shadow] hover:border-accent-line hover:shadow-md"
+                className="group relative flex items-center gap-4 rounded-xl card p-4 shadow-sm transition-[border-color,box-shadow] hover:border-accent-line hover:shadow-md"
               >
                 <span aria-hidden className="grid size-11 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
                   {c.icon}
@@ -70,7 +70,7 @@ export default function ContactPage() {
               </div>
             ))}
 
-            <div className="rounded-xl glass-card p-4 shadow-sm">
+            <div className="rounded-xl card p-4 shadow-sm">
               <div className="flex items-center gap-4">
                 <span aria-hidden className="grid size-11 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
                   <FileText className="size-5" />
@@ -101,7 +101,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <section aria-labelledby="form-title" data-reveal className="h-fit rounded-2xl glass-card p-6 shadow-md sm:p-8">
+          <section aria-labelledby="form-title" data-reveal className="h-fit rounded-2xl card p-6 shadow-md sm:p-8">
             <h2 id="form-title" className="text-xl font-semibold text-fg">
               Send a message
             </h2>

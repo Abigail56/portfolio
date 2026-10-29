@@ -8,9 +8,11 @@ interface SeoProps {
   description?: string;
   image?: string;
   noindex?: boolean;
+  /** Structured data (schema.org JSON-LD) for this page. */
+  jsonLd?: Record<string, unknown>;
 }
 
-export function Seo({ title, description = site.description, image = "/og.png", noindex }: SeoProps) {
+export function Seo({ title, description = site.description, image = "/og.png", noindex, jsonLd }: SeoProps) {
   const { asPath } = useRouter();
   const fullTitle = title ? `${title} · ${site.brand}` : `${site.person.name} · ${site.person.role}`;
   const path = asPath.split(/[?#]/)[0] ?? "/";
@@ -34,6 +36,10 @@ export function Seo({ title, description = site.description, image = "/og.png", 
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
+      {jsonLd && (
+        // "<" is escaped so content can never close the script tag early.
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      )}
     </Head>
   );
 }

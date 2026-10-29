@@ -20,7 +20,7 @@ export default function WorkPage() {
         <section aria-labelledby="featured-title">
           <SectionHeader id="featured-title" eyebrow="Featured" title="Products built end to end" />
           <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 lg:gap-10">
-            <FlagshipProject project={routebridge} eager />
+            <FlagshipProject project={routebridge} eager showFlow />
             <RealtimeProject project={voxplay} />
           </div>
         </section>

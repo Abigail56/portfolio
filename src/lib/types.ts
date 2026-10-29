@@ -1,4 +1,5 @@
-export type ProjectStatus = "live" | "not-deployed" | "in-development";
+/** "live": a public demo that responds. "not-deployed": runs locally only. "planned": designed, not started. */
+export type ProjectStatus = "live" | "not-deployed" | "in-development" | "planned";
 export type ProjectCategory = "full-stack" | "frontend";
 /** "product": something I designed as a product. "learning": built while learning a specific skill. */
 export type ProjectKind = "product" | "learning";

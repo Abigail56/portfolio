@@ -11,11 +11,11 @@ export default function LabPage() {
   return (
     <>
       <Seo
-        title="The Lab"
+        title="Interactive Lab"
         description="Small experiments: The Developer's Mind puzzle game, Brain Clash Mini, and a few more browser games by Chukwu Chinecherem."
       />
       <PageHeader
-        eyebrow="The Lab"
+        eyebrow="Interactive Lab"
         title="Small experiments. Big curiosity."
         lead="Short games that run entirely in your browser. Nothing is sent anywhere; best scores stay on your device."
       />

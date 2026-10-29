@@ -1,10 +1,14 @@
-import { Download } from "lucide-react";
+import Link from "next/link";
+import { BookOpenCheck, Download, ListChecks, ShieldAlert } from "lucide-react";
+import { SkillGroups } from "@/components/home/SkillGroups";
 import { Seo } from "@/components/layout/Seo";
 import { ButtonLink } from "@/components/ui/Button";
 import { Portrait } from "@/components/ui/Portrait";
 import { Container, SectionHeader } from "@/components/ui/Section";
 import { site } from "@/config/site";
-import { aboutParagraphs, languages, skillGroups, timeline } from "@/content/profile";
+import { aboutParagraphs, languages, principles, timeline } from "@/content/profile";
+
+const principleIcons = [ListChecks, ShieldAlert, BookOpenCheck];
 
 export default function AboutPage() {
   return (
@@ -16,11 +20,11 @@ export default function AboutPage() {
           <Portrait sizes="224px" className="mx-auto w-full max-w-[14rem]" />
           <div>
             <p className="eyebrow">About</p>
-            <h1 className="mt-2 text-3xl font-semibold leading-tight text-fg sm:text-4xl">{site.person.name}</h1>
-            <p className="mt-1 text-muted">
+            <h1 className="text-title mt-3 text-fg">{site.person.name}</h1>
+            <p className="mt-2 text-muted">
               {site.person.role} · {site.person.location}
             </p>
-            <div className="prose-body mt-6 max-w-2xl leading-relaxed text-fg">
+            <div className="prose-body text-lead measure mt-6 text-fg">
               {aboutParagraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
@@ -39,33 +43,45 @@ export default function AboutPage() {
         </div>
       </Container>
 
-      <Container className="mt-24 grid grid-cols-[minmax(0,1fr)] gap-24">
+      <Container className="section-gap mt-20 grid grid-cols-[minmax(0,1fr)] lg:mt-24">
+        <section id="principles" aria-labelledby="principles-title" className="scroll-mt-24">
+          <SectionHeader id="principles-title" eyebrow="How I work" title="Engineering principles" />
+          <ol className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-3">
+            {principles.map((p, i) => {
+              const Icon = principleIcons[i % principleIcons.length]!;
+              return (
+                <li key={p.title} data-reveal style={{ transitionDelay: `${i * 80}ms` }} className="card flex flex-col rounded-xl p-6">
+                  <span className="grid size-10 place-items-center rounded-lg bg-accent-soft text-accent">
+                    <Icon aria-hidden className="size-5" />
+                  </span>
+                  <h3 className="text-card mt-5 text-fg">{p.title}</h3>
+                  <p className="mt-2 text-[0.9375rem] leading-[1.65] text-muted">{p.detail}</p>
+                  <div className="mt-auto pt-5">
+                    <p className="text-meta border-t border-line pt-4 text-muted">
+                      <Link href={p.evidence.href} className="underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">
+                        {p.evidence.text}
+                      </Link>
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+
         <section id="toolkit" aria-labelledby="toolkit-title" className="scroll-mt-24">
           <SectionHeader id="toolkit-title" eyebrow="Toolkit" title="What I work with" />
-          <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2">
-            {skillGroups.map((group) => (
-              <div key={group.id} data-reveal className="rounded-2xl glass-card p-6">
-                <h3 className="font-semibold text-fg">{group.label}</h3>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {group.skills.map((s) => (
-                    <li key={s.name} className="rounded-md bg-surface-2 px-2.5 py-1 text-sm text-fg">
-                      {s.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <SkillGroups className="mt-8" />
         </section>
 
         <section id="experience" aria-labelledby="experience-title" className="scroll-mt-24">
           <SectionHeader id="experience-title" eyebrow="Experience" title="Training, work and education" />
-          <ol className="mt-8 rounded-2xl glass-card">
+          <ol className="card mt-8 rounded-2xl">
             {timeline.map((entry) => (
               <li key={entry.title} className="grid grid-cols-[minmax(0,1fr)] gap-1 border-b border-line p-6 last:border-b-0 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-8">
                 <p className="text-sm text-subtle">{entry.period}</p>
                 <div>
-                  <h3 className="font-semibold text-fg">{entry.title}</h3>
+                  <h3 className="text-card text-fg">{entry.title}</h3>
                   <p className="mt-0.5 text-sm text-muted">
                     {entry.organisation}
                     {entry.location && `, ${entry.location}`}

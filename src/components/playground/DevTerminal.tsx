@@ -171,7 +171,7 @@ export function DevTerminal() {
               execute(s);
               inputRef.current?.focus();
             }}
-            className="rounded-md glass-card px-2.5 py-1 font-mono text-xs text-muted hover:border-accent-line hover:text-fg"
+            className="rounded-md card px-2.5 py-1 font-mono text-xs text-muted hover:border-accent-line hover:text-fg"
           >
             {s}
           </button>

@@ -70,7 +70,7 @@ export function CodeQuest() {
     const missed = answers.filter((a) => a.chosen !== a.question.answer);
     return (
       <div className="mx-auto max-w-2xl">
-        <div className="rounded-xl glass-card p-6 text-center shadow-sm sm:p-8" aria-live="polite">
+        <div className="rounded-xl card p-6 text-center shadow-sm sm:p-8" aria-live="polite">
           <p className="font-mono text-xs uppercase tracking-[0.08em] text-subtle">Final score</p>
           <p className="mt-2 text-5xl font-semibold text-fg">
             {score}
@@ -95,7 +95,7 @@ export function CodeQuest() {
             </h2>
             <ul className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-3">
               {missed.map(({ question: q }) => (
-                <li key={q.id} className="rounded-lg glass-card p-4">
+                <li key={q.id} className="rounded-lg card p-4">
                   <p className="font-medium text-fg">{q.prompt}</p>
                   <p className="mt-1 text-sm text-success">Answer: {q.options[q.answer]}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted">{q.explanation}</p>
@@ -124,7 +124,7 @@ export function CodeQuest() {
         <div className="h-full rounded-full bg-accent transition-[width] duration-300" style={{ width: `${((index + (answered ? 1 : 0)) / order.length) * 100}%` }} />
       </div>
 
-      <div className="mt-6 rounded-xl glass-card p-5 shadow-sm sm:p-6">
+      <div className="mt-6 rounded-xl card p-5 shadow-sm sm:p-6">
         <p className="text-xs font-medium text-subtle">{question.topic}</p>
         <h2 ref={questionRef} tabIndex={-1} className="mt-3 text-lg font-semibold leading-snug text-fg outline-none sm:text-xl">
           {question.prompt}

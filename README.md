@@ -2,7 +2,7 @@
 
 The portfolio of **Chukwu Chinecherem**, Full-Stack Software Engineer, built as a small software product:
 project case studies, engineering notes with real code, and a working contact form, in a calm, editorial design.
-A small Lab (quiz, debugging exercise, memory game, terminal) is linked from the footer.
+A separate Interactive Lab (puzzle games, a Brain Clash mini quiz, Snake, a terminal) has its own place in the navigation.
 
 Built with Next.js (Pages Router), React, TypeScript and Tailwind CSS v4.
 
@@ -30,7 +30,7 @@ npm start
 | `npm run lint` | ESLint with Next.js, React Hooks and jsx-a11y rules |
 | `npm test` | Unit tests (Vitest): terminal, games, contact API, content integrity, colour contrast |
 | `npm run check` | All three above |
-| `npm run test:e2e` | Browser smoke test against a running build (`npm start` first; `BASE_URL` to point elsewhere). Every route at 360 px and 1440 px in both themes: console errors, horizontal overflow, broken images, links, CV download, 404, plus the menu, theme, Work page, terminal, games and contact form |
+| `npm run test:e2e` | Browser smoke test against a running build (`npm start` first; `BASE_URL` to point elsewhere). Every route at 360 px and 1440 px in both themes: console errors, horizontal overflow, broken images, links, CV download, 404, plus the menu, theme, hero actions (including the real CV download), structured data, terminal, games and contact form. The contact API is stubbed so no email is sent; set `SMOKE_SEND_EMAIL=1` to send a real one |
 
 The browser scripts use the Chrome installed on the machine (`/usr/bin/google-chrome`; set `CHROME_PATH` to change it).
 
@@ -57,8 +57,7 @@ Everything visitors read comes from typed files in `src/content` and `src/config
 | `src/config/site.ts` | Brand name, role, contact details, links, CV path, the "open to opportunities" switch, navigation |
 | `src/content/projects.ts` | Projects and their case studies (status, links, screenshots, architecture, code excerpt) |
 | `src/content/engineering.ts` | Engineering topics and code excerpts |
-| `src/content/profile.ts` | About text, toolkit, experience timeline |
-| `src/content/systemMap.ts` | Layers in the hero's interactive system map |
+| `src/content/profile.ts` | About text, engineering principles, skills (five groups), experience timeline |
 | `src/content/playground.ts` | Quiz questions, bug challenges, memory pairs |
 
 `npm test` checks the content: slugs, https links, that screenshots and the CV exist, that "live" projects have a live
@@ -94,7 +93,9 @@ scripts/                    screenshots, asset generation, browser smoke test
 
 ## Design system
 
-A neutral charcoal/off-white palette with ink-coloured buttons and one muted blue for links. Colours, shadows, radii and motion are tokens in `src/styles/globals.css`, defined once per theme and mapped to
+Dark navy by default (`#0B1020` page, `#10182A` and `#131D31` surfaces) with one blue accent, `#4776F5`, for borders,
+focus rings and highlights. Accent text uses the lighter `#7C9BFF` and solid buttons the deeper `#3D6BEA`, because white
+text on `#4776F5` is only 4.1:1. A light theme is available from the toggle. Colours, shadows, radii and motion are tokens in `src/styles/globals.css`, defined once per theme and mapped to
 Tailwind names (`bg-surface`, `text-muted`, `border-line`, `text-accent`…). Components use only those names, so both
 themes stay consistent. `tests/contrast.test.ts` checks every text token against every background for WCAG AA.
 Motion is limited to state changes and is turned off for visitors who prefer reduced motion.

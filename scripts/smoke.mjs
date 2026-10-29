@@ -48,8 +48,8 @@ const pass = (msg) => console.log(`  ✓ ${msg}`);
 
 async function newPage(browser, viewport, theme) {
   const context = await browser.newContext({ viewport, colorScheme: theme, reducedMotion: "reduce" });
-  // Light is the site's default; dark is what a visitor gets after choosing it with the toggle.
-  if (theme === "dark") await context.addInitScript(() => localStorage.setItem("theme", "dark"));
+  // Dark is the site's default; light is what a visitor gets after choosing it with the toggle.
+  if (theme === "light") await context.addInitScript(() => localStorage.setItem("theme", "light"));
   const page = await context.newPage();
   const errors = [];
   page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
@@ -120,7 +120,7 @@ async function checkLinks(links) {
 
 async function checkInteractions(browser) {
   console.log("\nInteractions");
-  const { page, context, errors } = await newPage(browser, { width: 390, height: 844 }, "light");
+  const { page, context, errors } = await newPage(browser, { width: 390, height: 844 }, "dark");
 
   // Mobile menu: opens, is labelled, closes on Escape and after navigating.
   await page.goto(BASE + "/", { waitUntil: "networkidle" });
@@ -139,11 +139,37 @@ async function checkInteractions(browser) {
   else pass("mobile menu closes after navigation");
 
   // Theme toggle persists across reloads.
-  await page.getByRole("button", { name: "Switch to dark theme" }).click();
-  await page.reload({ waitUntil: "networkidle" });
-  if ((await page.evaluate(() => document.documentElement.dataset.theme)) === "dark") pass("theme choice persists after reload");
-  else fail("theme did not persist");
   await page.getByRole("button", { name: "Switch to light theme" }).click();
+  await page.reload({ waitUntil: "networkidle" });
+  if ((await page.evaluate(() => document.documentElement.dataset.theme)) === "light") pass("theme choice persists after reload");
+  else fail("theme did not persist");
+  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+
+  // Hero actions: each does what its label says.
+  await page.goto(BASE + "/", { waitUntil: "networkidle" });
+  const hero = page.locator("section[aria-labelledby='hero-title']");
+  const heroCv = hero.getByRole("link", { name: /Download CV/ });
+  const heroLinks = {
+    projects: await hero.getByRole("link", { name: "Explore Projects" }).getAttribute("href"),
+    cv: await heroCv.getAttribute("href"),
+    cvDownload: await heroCv.getAttribute("download"),
+    github: await hero.getByRole("link", { name: /View GitHub/ }).getAttribute("href"),
+    linkedin: await hero.getByRole("link", { name: /Connect on LinkedIn/ }).getAttribute("href"),
+  };
+  const [download] = await Promise.all([page.waitForEvent("download"), heroCv.click()]);
+  if (
+    heroLinks.projects === "#work" &&
+    heroLinks.cv?.endsWith(".pdf") &&
+    heroLinks.cvDownload &&
+    download.suggestedFilename().endsWith(".pdf") &&
+    heroLinks.github?.startsWith("https://github.com/") &&
+    heroLinks.linkedin?.startsWith("https://www.linkedin.com/")
+  )
+    pass(`hero actions: projects, CV download (${download.suggestedFilename()}), GitHub and LinkedIn`);
+  else fail(`hero actions: ${JSON.stringify(heroLinks)}`);
+  const jsonLd = await page.locator('script[type="application/ld+json"]').textContent();
+  if (jsonLd && JSON.parse(jsonLd)["@type"] === "Person") pass("home page has Person structured data");
+  else fail("home page structured data missing or invalid");
 
   // The Developer's Mind: five challenges answered from the keyboard, then results and replay.
   await page.goto(BASE + "/playground/developers-mind", { waitUntil: "networkidle" });
@@ -232,18 +258,32 @@ async function checkInteractions(browser) {
   const focused = await page.evaluate(() => document.activeElement?.id);
   if (focused === "contact-name" && (await page.getByText("Please enter your name.").isVisible())) pass("contact form validates and focuses the first invalid field");
   else fail(`contact validation (focused ${focused})`);
+  // Unless SMOKE_SEND_EMAIL=1, the API is stubbed so a run never sends real email when Resend is configured.
+  // Both outcomes are checked: the honest failure (stubbed 503) and, when sending for real, the success panel.
+  const sendForReal = process.env.SMOKE_SEND_EMAIL === "1";
+  if (!sendForReal) {
+    await page.route("**/api/contact", (route) =>
+      route.fulfill({
+        status: 503,
+        contentType: "application/json",
+        body: JSON.stringify({ ok: false, reason: "not-configured", error: "The contact form isn't connected to email on this deployment yet, so your message was not sent." }),
+      }),
+    );
+  }
   await page.getByRole("textbox", { name: "Name", exact: true }).fill("Smoke Test");
   await page.getByRole("textbox", { name: "Email", exact: true }).fill("smoke@example.com");
   await page.getByRole("textbox", { name: "Message", exact: true }).fill("This is an automated smoke test of the contact form.");
-  await page.getByRole("button", { name: "Send message" }).click();
+  const sendButton = page.getByRole("button", { name: "Send message" });
+  await sendButton.click();
   // Scoped to <main>: Next.js also renders an (empty) route announcer with role="alert".
-  const alert = page.locator("main [role=alert]");
-  await alert.waitFor();
-  const alertText = await alert.innerText();
+  const outcome = page.locator("main [role=alert], main [role=status]").first();
+  await outcome.waitFor();
+  const outcomeText = await outcome.innerText();
   const sent = await page.getByText("Message sent").count();
-  if (sent === 0 && /not sent|wasn't sent|was not sent/.test(alertText)) pass(`contact form reports the failure honestly: "${alertText.split("\n")[0]}"`);
-  else if (sent > 0) pass("contact form sent a real message (email is configured)");
-  else fail(`contact form: unexpected state "${alertText}"`);
+  if (sent === 0 && /not sent|wasn't sent|was not sent/.test(outcomeText)) pass(`contact form reports the failure honestly: "${outcomeText.split("\n")[0]}"`);
+  else if (sent > 0 && sendForReal) pass("contact form sent a real message and shows the success state");
+  else fail(`contact form: unexpected state "${outcomeText}"`);
+  if (!sendForReal) await page.unroute("**/api/contact");
 
   // The contact API answering 503 (email not configured) is expected here; the browser logs it as a failed resource.
   const unexpected = errors.filter((e) => !e.includes("/api/contact") && !e.includes("status of 503"));
@@ -253,7 +293,7 @@ async function checkInteractions(browser) {
 
 async function checkCv(browser) {
   console.log("\nCV");
-  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce", acceptDownloads: true });
   const page = await ctx.newPage();
   await page.goto(BASE + "/", { waitUntil: "networkidle" });
   await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "CV", exact: true }).click();

@@ -6,6 +6,7 @@ const statusDot: Record<ProjectStatus, string> = {
   live: "bg-success",
   "not-deployed": "bg-subtle",
   "in-development": "bg-warning",
+  planned: "border border-subtle",
 };
 
 /** Project status as plain text with a small dot. */

@@ -14,7 +14,7 @@ export function PlaygroundShell({ game, children }: { game: GameInfo; children: 
           <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
             <Link href="/playground" className="inline-flex items-center gap-1.5 text-muted hover:text-fg">
               <ArrowLeft aria-hidden className="size-4" />
-              The Lab
+              Interactive Lab
             </Link>
             <Link href="/" className="text-muted hover:text-fg">
               Back to the portfolio

@@ -942,9 +942,10 @@ result.winner = candidates.reduce((best, c) => (votes[c] > votes[best] ? c : bes
 ];
 
 export const statusLabels: Record<ProjectStatus, string> = {
-  live: "Live",
-  "not-deployed": "Not currently deployed",
-  "in-development": "In development",
+  live: "Live Demo",
+  "not-deployed": "Local Demo",
+  "in-development": "In Development",
+  planned: "Planned",
 };
 
 export const categoryLabels: Record<ProjectCategory, string> = {

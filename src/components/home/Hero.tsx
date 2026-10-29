@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, FileText, MapPin } from "lucide-react";
+import { ArrowRight, Download, FileText, MapPin } from "lucide-react";
 import { site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 import { Portrait } from "@/components/ui/Portrait";
 import { Container } from "@/components/ui/Section";
 
-const profileLink = "inline-flex items-center gap-2 rounded-sm text-sm font-medium text-muted transition-colors hover:text-fg";
+const profileLink = "inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-medium text-muted transition-colors hover:text-fg sm:min-h-0";
 
 export function Hero() {
   return (
@@ -33,45 +33,48 @@ export function Hero() {
             Building thoughtful digital products, from frontend to backend.
           </h1>
           <p className="text-lead mt-6 max-w-[36rem] text-muted">
-            I&apos;m a Full-Stack Software Engineer focused on usable web applications, reliable backend systems and
-            maintainable software. I work across frontend interfaces, APIs, databases and real-time features to turn
-            ideas into practical products.
+            I build responsive web applications, the APIs behind them and the data models they rely on, with
+            React, Next.js, TypeScript, Python, FastAPI and PostgreSQL.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center">
             <ButtonLink href="#work" size="lg" className="group">
-              Explore My Work
+              Explore Projects
               <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </ButtonLink>
-            <ButtonLink href="#contact" variant="secondary" size="lg">
-              Get in Touch
+            <ButtonLink href={site.cv.href} download={site.cv.fileName} variant="secondary" size="lg">
+              <Download aria-hidden className="size-4" />
+              Download CV
+              <span className="sr-only">({site.cv.sizeLabel})</span>
             </ButtonLink>
-            <Link href={site.cv.viewHref} className="link-arrow h-11 justify-center px-2 text-muted min-[420px]:justify-start">
-              <FileText aria-hidden className="size-4" />
-              View CV
-            </Link>
           </div>
 
-          <ul className="mt-8 flex sm:mt-10  flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-6" aria-label="Profiles and availability">
+          <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-1 border-t border-line pt-4 sm:mt-10 sm:gap-y-3 sm:pt-6" aria-label="Profiles and availability">
             <li>
               <a href={site.links.github} target="_blank" rel="noopener noreferrer" className={profileLink}>
                 <GitHubIcon className="size-4" />
-                GitHub<span className="sr-only"> (opens in a new tab)</span>
+                View GitHub<span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
             <li>
               <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer" className={profileLink}>
                 <LinkedInIcon className="size-4" />
-                LinkedIn<span className="sr-only"> (opens in a new tab)</span>
+                Connect on LinkedIn<span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
+            <li>
+              <Link href={site.cv.viewHref} className={profileLink}>
+                <FileText aria-hidden className="size-4" />
+                Read CV online
+              </Link>
+            </li>
             {site.openToOpportunities && (
-              <li className="inline-flex items-center gap-2 text-sm text-muted">
+              <li className="inline-flex min-h-11 items-center gap-2 text-sm text-muted sm:min-h-0">
                 <span aria-hidden className="size-2 rounded-full bg-success ring-4 ring-success-soft" />
                 Open to opportunities
               </li>
             )}
-            <li className="inline-flex items-center gap-1.5 text-sm text-muted">
+            <li className="inline-flex min-h-11 items-center gap-1.5 text-sm text-muted sm:min-h-0">
               <MapPin aria-hidden className="size-4 text-subtle" />
               {site.person.location}
             </li>

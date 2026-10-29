@@ -51,14 +51,11 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Work", href: "/#work" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
+  { label: "Interactive Lab", href: "/playground" },
   { label: "Contact", href: "/contact" },
 ];
 
 /** Secondary pages, linked from the footer only. */
-export const footerExtras: NavItem[] = [
-  { label: "Engineering notes", href: "/engineering" },
-  { label: "The Lab", href: "/playground" },
-];
+export const footerExtras: NavItem[] = [{ label: "Engineering notes", href: "/engineering" }];

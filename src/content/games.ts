@@ -9,7 +9,7 @@ export interface GameInfo {
   summary: string;
   detail: string;
   meta: string;
-  /** Featured games get a card in The Lab on the home page; the rest are listed on the Lab page. */
+  /** Featured games get a card in the Interactive Lab on the home page; the rest are listed on the Lab page. */
   featured?: boolean;
 }
 

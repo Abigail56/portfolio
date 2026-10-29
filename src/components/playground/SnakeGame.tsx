@@ -302,7 +302,7 @@ export function SnakeGame() {
 
   if (phase === "setup") {
     return (
-      <div className="mx-auto max-w-lg rounded-2xl glass-card p-6 shadow-sm sm:p-8">
+      <div className="mx-auto max-w-lg rounded-2xl card p-6 shadow-sm sm:p-8">
         <h2 className="text-xl font-semibold text-fg">Set up your game</h2>
         <fieldset className="mt-6">
           <legend className="text-sm font-medium text-fg">Speed</legend>

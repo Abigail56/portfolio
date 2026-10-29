@@ -94,7 +94,7 @@ export default function CvPage() {
       </div>
 
       <Container>
-        <details className="mx-auto mt-10 max-w-[52rem] rounded-xl glass-card p-5 shadow-sm">
+        <details className="mx-auto mt-10 max-w-[52rem] rounded-xl card p-5 shadow-sm">
           <summary className="cursor-pointer font-medium text-fg">Text version of the CV</summary>
           <div className="mt-4 grid gap-6">
             {cv.text.map((pageText, i) => (

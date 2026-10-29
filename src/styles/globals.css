@@ -2,8 +2,8 @@
 
 /* ------------------------------------------------------------------------------------------------
    Design tokens
-   A light, cool-toned theme by default and a dark navy theme from the toggle, with one cobalt accent used for
-   primary actions, links and selected states only. Every colour is defined once per theme; components only use the Tailwind names
+   A dark navy theme by default (#0b1020 page, #10182a/#131d31 surfaces, #4776f5 accent) and a light, cool-toned
+   theme from the toggle. The accent is kept for primary actions, links, focus and selected states. Every colour is defined once per theme; components only use the Tailwind names
    mapped in @theme below (bg-surface, text-muted, border-line…). tests/contrast.test.ts checks them.
    ------------------------------------------------------------------------------------------------ */
 
@@ -49,33 +49,35 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #080b12;
-  --surface: #101624;
-  --surface-2: #151d2d;
-  --surface-3: #1b2438;
-  --line: rgb(255 255 255 / 0.09);
-  --line-strong: rgb(255 255 255 / 0.16);
+  --bg: #0b1020;
+  --surface: #131d31;
+  --surface-2: #10182a;
+  --surface-3: #1a2640;
+  --line: #222d45;
+  --line-strong: #33405e;
   --fg: #f5f7fc;
-  --muted: #a2aec2;
-  --subtle: #7e8aa1;
-  --accent: #7792ff;
-  --accent-solid: #4566ec;
-  --accent-solid-hover: #3b5ce3;
-  --accent-soft: rgb(91 124 250 / 0.12);
-  --accent-line: rgb(119 146 255 / 0.45);
+  --muted: #a3adc2;
+  --subtle: #8f9ab0;
+  /* #4776f5 is the brand accent (borders, focus, highlights); text uses a lighter tint and buttons a deeper one,
+     because white on #4776f5 is only 4.1:1. */
+  --accent: #7c9bff;
+  --accent-solid: #3d6bea;
+  --accent-solid-hover: #3560dc;
+  --accent-soft: rgb(71 118 245 / 0.14);
+  --accent-line: rgb(71 118 245 / 0.6);
   --on-accent: #ffffff;
   --cyan: #67d4e8;
-  --cyan-soft: rgb(108 198 210 / 0.08);
+  --cyan-soft: rgb(103 212 232 / 0.08);
   --success: #4ade80;
-  --success-soft: rgb(92 207 149 / 0.1);
+  --success-soft: rgb(74 222 128 / 0.12);
   --warning: #fbbf24;
-  --warning-soft: rgb(226 180 90 / 0.1);
+  --warning-soft: rgb(251 191 36 / 0.1);
   --danger: #fb7185;
-  --danger-soft: rgb(240 138 138 / 0.1);
-  --code-bg: #05070c;
+  --danger-soft: rgb(251 113 133 / 0.1);
+  --code-bg: #070b16;
   --code-fg: #e2e8f0;
-  --brand-1: #5b7cfa;
-  --brand-2: #7792ff;
+  --brand-1: #4776f5;
+  --brand-2: #7c9bff;
   --brand-3: #5fa8f5;
   --brand-4: #a9b8ff;
   --brand-5: #4fc3d6;
@@ -84,7 +86,7 @@
   --shadow-lg: 0 1px 2px rgb(0 0 0 / 0.3), 0 24px 56px -28px rgb(0 0 0 / 0.7);
   --glass-line: rgb(255 255 255 / 0.09);
   --glass-highlight: rgb(255 255 255 / 0.04);
-  --glow: rgb(69 102 236 / 0.4);
+  --glow: rgb(71 118 245 / 0.4);
 }
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
@@ -201,7 +203,7 @@
     font-optical-sizing: auto;
   }
   ::selection {
-    background: rgb(91 124 250 / 0.3);
+    background: rgb(71 118 245 / 0.3);
     color: var(--fg);
   }
   :focus-visible {
@@ -358,7 +360,6 @@
     background-color: var(--accent-solid);
   }
   /* The standard card: a solid surface one step above the page and a fine border. No blur, no glow. */
-  .glass-card,
   .card {
     background-color: var(--surface);
     border: 1px solid var(--line);
