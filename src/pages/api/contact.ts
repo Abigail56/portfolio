@@ -20,11 +20,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const parsed = contactSchema.safeParse(req.body ?? {});
   if (!parsed.success) {
+    const fieldErrors = fieldErrorsFrom(parsed.error);
+    // No visible field is wrong, so only the hidden anti-spam field was filled (usually by browser autofill).
+    // Say so instead of pointing at highlighted fields that don't exist.
+    const hiddenFieldOnly = Object.keys(fieldErrors).length === 0;
     return res.status(400).json({
       ok: false,
       reason: "validation",
-      error: "Please check the highlighted fields.",
-      fieldErrors: fieldErrorsFrom(parsed.error),
+      error: hiddenFieldOnly
+        ? "Your browser filled in a hidden anti-spam field, so the message was not sent. Please try again, or email me directly."
+        : "Please check the highlighted fields.",
+      fieldErrors,
     });
   }
 

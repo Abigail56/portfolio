@@ -57,6 +57,13 @@ describe("POST /api/contact", () => {
     vi.unstubAllGlobals();
   });
 
+  it("explains a filled anti-spam field instead of pointing at highlighted fields", async () => {
+    const res = await call({ ...valid, website: "https://example.com" });
+    expect(res.statusCode).toBe(400);
+    expect(res.payload).toMatchObject({ ok: false, reason: "validation", fieldErrors: {} });
+    expect((res.payload as { error: string }).error).toMatch(/hidden anti-spam field/);
+  });
+
   it("reports success only when the provider accepts the email", async () => {
     const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ id: "email_123" }), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);

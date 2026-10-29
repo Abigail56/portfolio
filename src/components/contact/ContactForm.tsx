@@ -193,10 +193,22 @@ export function ContactForm() {
         )}
       </div>
 
-      {/* Honeypot for bots: hidden from people and from assistive technology. */}
+      {/* Honeypot for bots: hidden from people and from assistive technology. Its name and label are deliberately
+          meaningless: browsers autofill fields called "website" (ignoring autocomplete="off"), which made real
+          visitors' messages fail. It is still sent to the API as `website`. */}
       <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label htmlFor="contact-website">Website</label>
-        <input id="contact-website" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={(e) => update("website", e.target.value)} />
+        <label htmlFor="contact-hp">Leave this field empty</label>
+        <input
+          id="contact-hp"
+          name="hp-field"
+          type="text"
+          tabIndex={-1}
+          autoComplete="new-password"
+          data-1p-ignore
+          data-lpignore="true"
+          value={values.website}
+          onChange={(e) => update("website", e.target.value)}
+        />
       </div>
 
       <div className="flex flex-wrap items-center gap-4">

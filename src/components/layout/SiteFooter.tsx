@@ -78,11 +78,10 @@ export function SiteFooter() {
         </div>
       </Container>
       <div className="border-t border-line">
-        <Container className="flex flex-col gap-2 py-6 text-[0.8125rem] text-subtle sm:flex-row sm:justify-between">
+        <Container className="py-6 text-[0.8125rem] text-subtle">
           <p>
             © {new Date().getFullYear()} {site.person.name}
           </p>
-          <p>Built with Next.js, TypeScript and Tailwind CSS.</p>
         </Container>
       </div>
     </footer>
