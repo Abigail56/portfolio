@@ -154,9 +154,9 @@ async function checkInteractions(browser) {
   // Hero actions: each does what its label says.
   await page.goto(BASE + "/", { waitUntil: "networkidle" });
   const hero = page.locator("section[aria-labelledby='hero-title']");
-  const heroCv = hero.getByRole("link", { name: /Download My CV/ });
+  const heroCv = hero.getByRole("link", { name: /Download CV/ });
   const heroLinks = {
-    projects: await hero.getByRole("link", { name: "Explore My Work" }).getAttribute("href"),
+    projects: await hero.getByRole("link", { name: "View My Projects" }).getAttribute("href"),
     cv: await heroCv.getAttribute("href"),
     cvDownload: await heroCv.getAttribute("download"),
     github: await hero.getByRole("link", { name: /GitHub/ }).getAttribute("href"),

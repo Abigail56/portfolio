@@ -5,7 +5,7 @@ import "@/styles/globals.css";
 
 // Self-hosted variable fonts (SIL Open Font License 1.1): no request to a font CDN at build or run time.
 const body = localFont({ src: "../fonts/Inter-latin.woff2", variable: "--font-body", display: "swap" });
-const display = localFont({ src: "../fonts/Figtree-latin.woff2", variable: "--font-heading", display: "swap" });
+const display = localFont({ src: "../fonts/PlusJakartaSans-latin.woff2", variable: "--font-heading", display: "swap" });
 const code = localFont({ src: "../fonts/JetBrainsMono-latin.woff2", variable: "--font-code", display: "swap" });
 
 export default function App({ Component, pageProps }: AppProps) {

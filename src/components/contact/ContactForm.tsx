@@ -11,7 +11,7 @@ const empty = { name: "", email: "", subject: "", message: "", website: "" };
 const MESSAGE_MAX = 4000;
 
 const inputClass =
-  "w-full rounded-md border bg-bg px-3 py-2.5 text-[0.9375rem] text-fg placeholder:text-subtle transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25";
+  "w-full rounded-md border bg-bg px-3 py-2.5 text-[0.9375rem] text-fg placeholder:text-faint transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25";
 
 export function ContactForm() {
   const [values, setValues] = useState(empty);

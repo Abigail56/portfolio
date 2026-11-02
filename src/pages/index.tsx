@@ -11,7 +11,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Container, SectionHeader } from "@/components/ui/Section";
 import { games } from "@/content/games";
 import { selectedProjects } from "@/content/projects";
-import { aboutFacts, aboutParagraphs } from "@/content/profile";
+import { aboutFacts, aboutParagraphs, focusAreas } from "@/content/profile";
 import { site } from "@/config/site";
 
 const experiments = games.filter((g) => g.kind === "experiment");
@@ -77,6 +77,13 @@ export default function OverviewPage() {
                   <p key={p}>{p}</p>
                 ))}
               </div>
+              <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Areas of focus">
+                {focusAreas.map((area) => (
+                  <li key={area} className="tag">
+                    {area}
+                  </li>
+                ))}
+              </ul>
               <dl className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-x-8 gap-y-5 border-t border-line pt-6 sm:grid-cols-3">
                 {aboutFacts.map((f) => (
                   <div key={f.label}>

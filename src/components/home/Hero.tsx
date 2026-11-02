@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight, Download, FileText, Mail, MapPin } from "lucide-react";
+import { ArrowRight, Download, Mail, MapPin } from "lucide-react";
 import { site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
@@ -11,10 +10,10 @@ const profileLink = "inline-flex min-h-11 items-center gap-2 rounded-sm text-sm 
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="border-b border-line">
-      <Container className="grid grid-cols-[minmax(0,1fr)] items-center gap-10 pb-14 pt-10 sm:pb-20 sm:pt-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-20 lg:pb-24 lg:pt-20">
+      <Container className="grid grid-cols-[minmax(0,1fr)] items-center gap-10 pb-14 pt-10 sm:pb-20 sm:pt-16 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:gap-16 lg:pb-24 lg:pt-20">
         <div className="max-lg:order-2">
           <h1 id="hero-title" className="text-hero text-fg">
-            <span className="font-normal text-muted">Hi, I&apos;m </span>
+            <span className="font-semibold text-subtle">Hi, I&apos;m </span>
             <span className="sm:block">{site.person.name}.</span>
           </h1>
           <p className="text-subtitle mt-5 text-accent">{site.person.role}</p>
@@ -27,17 +26,21 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center">
             <ButtonLink href="#work" size="lg" className="group">
-              Explore My Work
+              View My Projects
               <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </ButtonLink>
             <ButtonLink href={site.cv.href} download={site.cv.fileName} variant="secondary" size="lg">
               <Download aria-hidden className="size-4" />
-              Download My CV
+              Download CV
               <span className="sr-only">({site.cv.sizeLabel})</span>
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="ghost" size="lg">
+              <Mail aria-hidden className="size-4" />
+              Contact Me
             </ButtonLink>
           </div>
 
-          <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-0" aria-label="Profiles and contact">
+          <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-0" aria-label="Profiles">
             <li>
               <a href={site.links.github} target="_blank" rel="noopener noreferrer" className={profileLink}>
                 <GitHubIcon className="size-4" />
@@ -48,18 +51,6 @@ export function Hero() {
               <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer" className={profileLink}>
                 <LinkedInIcon className="size-4" />
                 LinkedIn<span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
-            <li>
-              <Link href={site.cv.viewHref} className={profileLink}>
-                <FileText aria-hidden className="size-4" />
-                View CV
-              </Link>
-            </li>
-            <li>
-              <a href={`mailto:${site.contact.email}`} className={profileLink}>
-                <Mail aria-hidden className="size-4" />
-                Email
               </a>
             </li>
           </ul>

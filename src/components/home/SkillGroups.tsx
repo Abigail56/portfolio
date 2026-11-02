@@ -1,7 +1,7 @@
 import { skillGroups } from "@/content/profile";
 import { cn } from "@/lib/cn";
 
-/** The toolkit in four columns separated by fine rules. Plain lists: no levels or percentages. */
+/** The toolkit in four columns separated by fine rules. Badges only: no levels or percentages. */
 export function SkillGroups({ className }: { className?: string }) {
   return (
     <div className={cn("grid grid-cols-[minmax(0,1fr)] border-t border-line sm:grid-cols-2 lg:grid-cols-4", className)}>
@@ -11,9 +11,11 @@ export function SkillGroups({ className }: { className?: string }) {
             {group.label}
           </h3>
           <p className="text-meta mt-1 text-subtle">{group.summary}</p>
-          <ul className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-2 text-[0.9375rem] text-muted">
+          <ul className="mt-4 flex flex-wrap gap-1.5">
             {group.skills.map((skill) => (
-              <li key={skill.name}>{skill.name}</li>
+              <li key={skill.name} className="tag">
+                {skill.name}
+              </li>
             ))}
           </ul>
         </section>

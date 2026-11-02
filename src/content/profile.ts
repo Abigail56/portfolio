@@ -2,9 +2,21 @@ import type { SkillGroup, TimelineEntry } from "@/lib/types";
 
 // About-page copy. Written from my CV; edit freely, it is rendered paragraph by paragraph.
 export const aboutParagraphs: string[] = [
-  "I'm a software engineer with an academic background in Building Technology and a passion for developing practical digital solutions.",
-  "My interests span frontend engineering, backend development, API design, database architecture, and building reliable software products.",
-  "I enjoy approaching problems analytically, exploring new technologies, and turning ideas into functional applications through continuous learning and hands-on development.",
+  "I'm a junior full-stack developer in Port Harcourt, Nigeria. I've built my engineering experience through independent projects, technical training with the Africa Plan Foundation, and continuous learning.",
+  "My work covers responsive frontends, backend APIs, database design, and authentication and authorization. On each project I start with the rules a system has to enforce, then build the data model, the API and the interface around them.",
+  "Before software, I studied Building Technology and worked in construction site management, where I learned to plan carefully, document clearly and solve problems methodically. I bring those habits to the software I build, and I'm still learning with every project.",
+];
+
+/** What I work on, shown beside the About text. */
+export const focusAreas: string[] = [
+  "Full-stack web development",
+  "Frontend development",
+  "Backend API development",
+  "Database design and management",
+  "Authentication and authorization",
+  "Software architecture",
+  "Problem-solving",
+  "Continuous learning",
 ];
 
 /** Each principle points at a place in my own code where it shows. */
@@ -29,7 +41,7 @@ export const principles: { title: string; detail: string; evidence: { text: stri
 export const skillGroups: SkillGroup[] = [
   {
     id: "frontend",
-    label: "Frontend Development",
+    label: "Frontend",
     summary: "Typed, responsive interfaces.",
     skills: [
       { name: "React", projects: ["routebridge", "fleetpulse", "voxplay"] },
@@ -41,12 +53,12 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: "backend",
-    label: "Backend Development",
+    label: "Backend",
     summary: "APIs with explicit contracts.",
     skills: [
       { name: "Python", projects: ["routebridge", "fleetpulse", "echovault-nexus", "ghostwork", "voxplay"] },
       { name: "FastAPI", projects: ["routebridge", "fleetpulse", "echovault-nexus", "ghostwork", "voxplay"] },
-      { name: "REST API Development", projects: ["routebridge", "fleetpulse", "echovault-nexus", "ghostwork"] },
+      { name: "RESTful APIs", projects: ["routebridge", "fleetpulse", "echovault-nexus", "ghostwork"] },
       { name: "SQLModel", projects: ["routebridge", "fleetpulse", "echovault-nexus", "ghostwork", "voxplay"] },
       { name: "SQLAlchemy", projects: ["echovault-nexus", "ghostwork", "voxplay"] },
     ],
@@ -68,9 +80,9 @@ export const skillGroups: SkillGroup[] = [
       { name: "Git" },
       { name: "GitHub" },
       { name: "Docker", projects: ["routebridge", "fleetpulse", "ghostwork", "voxplay"] },
-      { name: "Linux" },
       { name: "Alembic", projects: ["fleetpulse", "echovault-nexus", "ghostwork"] },
       { name: "Pytest", projects: ["routebridge", "fleetpulse", "echovault-nexus", "ghostwork", "voxplay"] },
+      { name: "Automated Testing", projects: ["routebridge", "fleetpulse", "echovault-nexus", "ghostwork"] },
     ],
   },
 ];

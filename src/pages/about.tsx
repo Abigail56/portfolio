@@ -7,7 +7,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Portrait } from "@/components/ui/Portrait";
 import { Container, SectionHeader } from "@/components/ui/Section";
 import { site } from "@/config/site";
-import { aboutParagraphs, principles } from "@/content/profile";
+import { aboutParagraphs, focusAreas, principles } from "@/content/profile";
 
 const principleIcons = [ListChecks, ShieldAlert, BookOpenCheck];
 
@@ -30,6 +30,13 @@ export default function AboutPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
+            <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Areas of focus">
+              {focusAreas.map((area) => (
+                <li key={area} className="tag">
+                  {area}
+                </li>
+              ))}
+            </ul>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
               <ButtonLink href={site.cv.viewHref} variant="secondary" size="sm">
                 View CV

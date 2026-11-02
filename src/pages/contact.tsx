@@ -101,7 +101,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <section aria-labelledby="form-title" data-reveal className="h-fit rounded-2xl card p-6 shadow-md sm:p-8">
+          <section aria-labelledby="form-title" data-reveal className="h-fit rounded-xl card p-6 shadow-md sm:p-8">
             <h2 id="form-title" className="text-xl font-semibold text-fg">
               Send a message
             </h2>

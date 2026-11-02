@@ -2,27 +2,28 @@
 
 /* ------------------------------------------------------------------------------------------------
    Design tokens
-   A dark navy theme by default (#0b1020 page, #10182a/#131d31 surfaces, #4776f5 accent) and a light, cool-toned
-   theme from the toggle. The accent is kept for primary actions, links, focus and selected states. Every colour is defined once per theme; components only use the Tailwind names
+   A dark navy theme by default (#0b1020 page, #10182a/#131d31 surfaces, #4776f5 accent) and a clean light theme
+   (#f8fafc page, white cards, #4f46e5 accent) from the toggle. The accent is kept for primary actions, links, focus and selected states. Every colour is defined once per theme; components only use the Tailwind names
    mapped in @theme below (bg-surface, text-muted, border-line…). tests/contrast.test.ts checks them.
    ------------------------------------------------------------------------------------------------ */
 
 :root {
   color-scheme: light;
-  --bg: #f4f7fc;
+  --bg: #f8fafc;
   --surface: #ffffff;
-  --surface-2: #eef2f9;
-  --surface-3: #e4eaf4;
-  --line: #dce3ee;
-  --line-strong: #c2cddf;
-  --fg: #192235;
-  --muted: #586780;
-  --subtle: #5c6b84;
-  --accent: #3549d8;
-  --accent-solid: #3549d8;
-  --accent-solid-hover: #293bbe;
-  --accent-soft: #e9edff;
-  --accent-line: rgb(53 73 216 / 0.35);
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+  --fg: #111827;
+  --muted: #374151;
+  --subtle: #4b5563;
+  --accent: #4f46e5;
+  --accent-solid: #4f46e5;
+  --accent-solid-hover: #4338ca;
+  --accent-soft: #eef2ff;
+  --accent-line: rgb(79 70 229 / 0.4);
+  --faint: #64748b;
   --on-accent: #ffffff;
   --cyan: #0e7490;
   --cyan-soft: rgb(14 107 119 / 0.08);
@@ -39,8 +40,8 @@
   --brand-3: #0e7fb8;
   --brand-4: #c9851a;
   --brand-5: #0f8a7e;
-  --shadow-sm: 0 1px 2px rgb(25 34 53 / 0.05);
-  --shadow-md: 0 1px 2px rgb(25 34 53 / 0.04), 0 8px 24px -12px rgb(25 34 53 / 0.12);
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.04);
+  --shadow-md: 0 1px 2px rgb(15 23 42 / 0.04), 0 10px 24px -14px rgb(15 23 42 / 0.14);
   --shadow-lg: 0 1px 2px rgb(25 34 53 / 0.05), 0 24px 48px -24px rgb(25 34 53 / 0.22);
   --glass-line: rgb(25 34 53 / 0.09);
   --glass-highlight: rgb(255 255 255 / 0.7);
@@ -65,6 +66,7 @@
   --accent-solid-hover: #3560dc;
   --accent-soft: rgb(71 118 245 / 0.14);
   --accent-line: rgb(71 118 245 / 0.6);
+  --faint: #8f9ab0;
   --on-accent: #ffffff;
   --cyan: #67d4e8;
   --cyan-soft: rgb(103 212 232 / 0.08);
@@ -101,6 +103,7 @@
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-subtle: var(--subtle);
+  --color-faint: var(--faint);
   --color-accent: var(--accent);
   --color-accent-solid: var(--accent-solid);
   --color-accent-solid-hover: var(--accent-solid-hover);
@@ -192,6 +195,9 @@
     font-size: 100%;
   }
   body {
+    transition:
+      background-color 200ms,
+      color 200ms;
     background-color: var(--bg);
     color: var(--fg);
     font-size: 1rem;
@@ -265,28 +271,28 @@
      Desktop targets: hero 60, section 38, project 28, secondary 24, card 17, body 16, meta 13, tags 12. */
   /* The name in the hero: the largest type on the site. */
   .text-hero {
-    font-size: clamp(2.625rem, 1.8rem + 3.4vw, 4.5rem); /* 42px → 72px */
+    font-size: clamp(2.625rem, 1.6rem + 2.9vw, 4.25rem); /* 42px → 68px */
     line-height: 1.04;
-    letter-spacing: -0.035em;
-    font-weight: 600;
+    letter-spacing: -0.04em;
+    font-weight: 700;
   }
   .text-display {
     font-size: clamp(2.5rem, 1.75rem + 2.6vw, 3.75rem); /* 40px → 60px */
     line-height: 1.06;
-    letter-spacing: -0.04em;
-    font-weight: 620;
+    letter-spacing: -0.035em;
+    font-weight: 700;
   }
   .text-title {
     font-size: clamp(1.8125rem, 1.5rem + 1vw, 2.375rem); /* 29px → 38px */
     line-height: 1.15;
     letter-spacing: -0.03em;
-    font-weight: 600;
+    font-weight: 700;
   }
   .text-project {
     font-size: clamp(1.4375rem, 1.27rem + 0.55vw, 1.75rem); /* 23px → 28px */
     line-height: 1.2;
     letter-spacing: -0.022em;
-    font-weight: 600;
+    font-weight: 700;
   }
   .text-subtitle {
     font-size: clamp(1.25rem, 1.12rem + 0.45vw, 1.5rem); /* 20px → 24px */
@@ -370,6 +376,16 @@
   .card {
     background-color: var(--surface);
     border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color 200ms,
+      box-shadow 200ms,
+      background-color 200ms;
+  }
+  /* For cards that are themselves a destination. */
+  .card-hover:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-md);
   }
   .glow {
     box-shadow: none;
@@ -396,6 +412,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
   .js [data-reveal] {
     opacity: 0;
     transform: translateY(10px);

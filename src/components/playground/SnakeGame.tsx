@@ -302,7 +302,7 @@ export function SnakeGame() {
 
   if (phase === "setup") {
     return (
-      <div className="mx-auto max-w-lg rounded-2xl card p-6 shadow-sm sm:p-8">
+      <div className="mx-auto max-w-lg rounded-xl card p-6 shadow-sm sm:p-8">
         <h2 className="text-xl font-semibold text-fg">Set up your game</h2>
         <fieldset className="mt-6">
           <legend className="text-sm font-medium text-fg">Speed</legend>
@@ -371,7 +371,7 @@ export function SnakeGame() {
           ref={canvasRef}
           tabIndex={0}
           aria-label={`Snake board. Score ${score}. Use the arrow keys to steer and Space to pause.`}
-          className="aspect-square w-full touch-none rounded-2xl border border-line shadow-md"
+          className="aspect-square w-full touch-none rounded-xl border border-line shadow-md"
           onTouchStart={(e) => {
             const t = e.touches[0];
             if (t) touchStart.current = { x: t.clientX, y: t.clientY };
@@ -393,9 +393,9 @@ export function SnakeGame() {
           </p>
         )}
         {(phase === "paused" || phase === "over") && (
-          <div className="absolute inset-0 grid place-items-center rounded-2xl bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] p-4 backdrop-blur-[2px]" aria-live="polite">
+          <div className="absolute inset-0 grid place-items-center rounded-xl bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] p-4 backdrop-blur-[2px]" aria-live="polite">
             {phase === "paused" && (
-              <div className="rounded-2xl bg-surface p-6 text-center shadow-lg">
+              <div className="rounded-xl bg-surface p-6 text-center shadow-lg">
                 <p className="text-lg font-semibold text-fg">Paused</p>
                 <Button className="mt-4" onClick={resume}>
                   <Play aria-hidden className="size-4" />
@@ -404,7 +404,7 @@ export function SnakeGame() {
               </div>
             )}
             {phase === "over" && (
-              <div className="w-full max-w-xs rounded-2xl bg-surface p-6 text-center shadow-lg">
+              <div className="w-full max-w-xs rounded-xl bg-surface p-6 text-center shadow-lg">
                 <p className="text-sm font-medium text-subtle">Game over</p>
                 <p className="mt-1 text-4xl font-bold text-fg tabular-nums">{score}</p>
                 {score > 0 && best !== null && score >= best && <p className="mt-1 text-sm font-medium text-success">New best score</p>}

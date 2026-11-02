@@ -154,11 +154,11 @@ export default function CaseStudyPage({ slug }: Props) {
       {shot && (
         <Container className="mt-12">
           <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-6 lg:grid-cols-[minmax(0,1fr)_12rem]">
-            <div className="card rounded-2xl p-2 shadow-md sm:p-3">
+            <div className="card rounded-xl p-2 shadow-md sm:p-3">
               <ProjectPreview project={project} eager sizes="(min-width: 1024px) 780px, 100vw" />
             </div>
             {shot.mobile && (
-              <figure className="card hidden rounded-2xl p-2 shadow-md lg:block">
+              <figure className="card hidden rounded-xl p-2 shadow-md lg:block">
                 <div className="relative aspect-[390/844] overflow-hidden rounded-xl bg-surface-2" style={shot.backdrop ? { backgroundColor: shot.backdrop } : undefined}>
                   <Image src={shot.mobile} alt={`${project.name} at phone width`} fill sizes="192px" className="object-cover object-top" />
                 </div>

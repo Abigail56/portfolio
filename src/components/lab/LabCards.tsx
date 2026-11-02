@@ -13,7 +13,7 @@ const clash = games.find((g) => g.id === "brain-clash")!;
 export function LabCards() {
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-2">
-      <article data-reveal className="card flex flex-col rounded-2xl p-5 sm:p-7">
+      <article data-reveal className="card flex flex-col rounded-xl p-5 sm:p-7">
         <div aria-hidden className="rounded-xl border border-line bg-surface-2 p-5 font-mono text-sm">
           <div className="flex items-center justify-between text-xs text-subtle">
             <span>Challenge 1 of 5 · Sequence</span>
@@ -42,7 +42,7 @@ export function LabCards() {
         </div>
       </article>
 
-      <article data-reveal style={{ transitionDelay: "80ms" }} className="card flex flex-col rounded-2xl p-5 sm:p-7">
+      <article data-reveal style={{ transitionDelay: "80ms" }} className="card flex flex-col rounded-xl p-5 sm:p-7">
         <div aria-hidden className="rounded-xl border border-line bg-surface-2 p-5 text-sm">
           <div className="flex items-center justify-between text-xs text-subtle">
             <span className="inline-flex items-center gap-1.5">

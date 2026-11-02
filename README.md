@@ -104,4 +104,4 @@ Motion is limited to state changes and is turned off for visitors who prefer red
 
 - `npm install` needs `legacy-peer-deps` (set in `.npmrc`): npm's peer resolver crashes on Vitest 5's optional peers.
   The npm bundled with Debian/Ubuntu (9.2) also crashes on this tree; use npm 10+ (`npx npm@10 install`) if it does.
-- Fonts (Inter for text, JetBrains Mono for code, Figtree for the generated social images; SIL OFL 1.1) are self-hosted in `src/fonts`.
+- Fonts (Inter for text, Plus Jakarta Sans for headings, JetBrains Mono for code; SIL OFL 1.1) are self-hosted in `src/fonts`.

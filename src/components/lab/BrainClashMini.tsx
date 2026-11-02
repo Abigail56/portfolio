@@ -90,7 +90,7 @@ export function BrainClashMini() {
   }, [phase]);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[#2a2257] bg-[#120e2b] text-white shadow-lg [background-image:radial-gradient(120%_80%_at_100%_0%,rgb(124_92_255/0.18),transparent_60%),radial-gradient(90%_70%_at_0%_100%,rgb(79_111_245/0.14),transparent_60%)]">
+    <div className="relative overflow-hidden rounded-xl border border-[#2a2257] bg-[#120e2b] text-white shadow-lg [background-image:radial-gradient(120%_80%_at_100%_0%,rgb(124_92_255/0.18),transparent_60%),radial-gradient(90%_70%_at_0%_100%,rgb(79_111_245/0.14),transparent_60%)]">
       <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3.5 sm:px-7">
         <p className="inline-flex items-center gap-2 text-sm font-semibold tracking-[-0.01em]">
           <Zap aria-hidden className="size-4 text-[#a99bff]" />
