@@ -19,10 +19,11 @@ export function Hero() {
           </h1>
           <p className="text-subtitle mt-5 text-accent">{site.person.role}</p>
           <p className="text-lead mt-6 max-w-[38rem] text-muted">
-            I build responsive web applications, scalable APIs, and reliable backend systems. I enjoy transforming ideas into practical digital
-            products through thoughtful engineering, clean architecture, and modern web technologies.
+            I build modern web applications, responsive user interfaces, and reliable backend systems. I enjoy turning ideas into practical digital solutions
+            through clean code, thoughtful engineering, and modern technologies. My focus is on developing secure, scalable, and user-friendly applications
+            that solve real-world problems.
           </p>
-          <p className="mt-6 font-mono text-[0.8125rem] leading-relaxed text-subtle">{site.coreTechnologies.join(" · ")}</p>
+          <p className="mt-6 font-mono text-[0.8125rem] font-semibold leading-relaxed text-fg">{site.coreTechnologies.join(" · ")}</p>
 
           <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center">
             <ButtonLink href="#work" size="lg" className="group">
