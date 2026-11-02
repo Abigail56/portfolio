@@ -9,17 +9,16 @@ export const site = {
    */
   url: process.env.SITE_URL || null,
   description:
-    "Chukwu Chinecherem is an entry-level full-stack software engineer in Port Harcourt, Nigeria, building responsive web applications, APIs and backend systems with React, Next.js, TypeScript, Python, FastAPI and PostgreSQL.",
+    "Chukwu Chinecherem is a junior full-stack developer in Port Harcourt, Nigeria, building responsive web applications, APIs and backend systems with React, Next.js, TypeScript, Python, FastAPI and PostgreSQL.",
   person: {
     name: "Chukwu Chinecherem",
     firstName: "Chinecherem",
-    role: "Entry-Level Full-Stack Software Engineer",
+    role: "Junior Full-Stack Developer",
     location: "Port Harcourt, Nigeria",
     timezone: "WAT (UTC+1)",
   },
   // Set to false to hide the availability indicator in the navigation and on the contact page.
-  openToOpportunities: true,
-  availabilityLabel: "Open to Software Engineering Opportunities",
+  openToOpportunities: false,
   coreTechnologies: ["React", "Next.js", "TypeScript", "Python", "FastAPI", "PostgreSQL"],
   contact: {
     email: "chinecheremchukwu15@gmail.com",

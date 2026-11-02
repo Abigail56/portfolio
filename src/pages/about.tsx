@@ -14,7 +14,7 @@ const principleIcons = [ListChecks, ShieldAlert, BookOpenCheck];
 export default function AboutPage() {
   return (
     <>
-      <Seo title="About" description="Chukwu Chinecherem: an entry-level full-stack software engineer with a background in Building Technology. Skills, training, experience and education." />
+      <Seo title="About" description="Chukwu Chinecherem: a junior full-stack developer with a background in Building Technology. Skills, training, experience and education." />
 
       <Container className="pt-14 sm:pt-20">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-10 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-14">

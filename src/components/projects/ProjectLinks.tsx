@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 export function ProjectLinks({ project, className, explain }: { project: Project; className?: string; explain?: boolean }) {
   const { live, repo } = project.links;
   const notes = [
-    !live && explain && (project.status === "not-deployed" ? "No public demo; it runs locally." : "Not released yet."),
+    !live && explain && (project.status === "not-deployed" ? "No public demo; it runs locally." : "Not publicly deployed yet."),
     !repo && explain && (project.repoNote ?? "No public repository."),
   ].filter(Boolean);
 

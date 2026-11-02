@@ -82,10 +82,10 @@ export const timeline: TimelineEntry[] = [
     organisation: "Africa Plan Foundation (APF)",
     period: "Ongoing",
     points: [
-      "Frontend development with React, Next.js, TypeScript and modern CSS frameworks",
-      "Backend development with Python, FastAPI, relational databases and RESTful APIs",
-      "Collaborative development, version control, debugging and project-based work",
-      "Authentication, database design, testing, containerisation and deployment",
+      "Developing practical software engineering skills through structured technical training and hands-on projects",
+      "Building full-stack applications using React, Next.js, TypeScript, Python and FastAPI",
+      "Practising RESTful API development, database design, authentication, testing and application security",
+      "Using Git and GitHub for version control and collaborative software development",
     ],
   },
   {
@@ -94,17 +94,7 @@ export const timeline: TimelineEntry[] = [
     organisation: "National Youth Service Corps (NYSC)",
     location: "Akwa Ibom, Nigeria",
     period: "Nov 2022 – Nov 2023",
-    points: [
-      "Taught structured Mathematics lessons to build students' understanding and problem-solving",
-    ],
-  },
-  {
-    kind: "leadership",
-    title: "Head of Corps Members",
-    organisation: "National Youth Service Corps (NYSC)",
-    location: "Akwa Ibom, Nigeria",
-    period: "Nov 2022 – Nov 2023",
-    points: ["Coordinated activities and supported collaboration among fellow corps members"],
+    points: ["Delivered Mathematics lessons, simplifying technical concepts and developing students' problem-solving abilities"],
   },
   {
     kind: "employment",
@@ -114,8 +104,19 @@ export const timeline: TimelineEntry[] = [
     period: "May 2019 – Dec 2021",
     points: [
       "Supported construction project coordination, building design reviews and preparation of Bills of Quantities (BOQs)",
-      "Assisted with project planning and technical documentation",
-      "Worked with colleagues to resolve project challenges",
+      "Assisted with project planning and technical documentation, applying analytical thinking and attention to detail",
+      "Collaborated with colleagues to resolve project challenges and support operational objectives",
+    ],
+  },
+  {
+    kind: "leadership",
+    title: "Head of Corps Members",
+    organisation: "National Youth Service Corps (NYSC)",
+    location: "Akwa Ibom, Nigeria",
+    period: "Nov 2022 – Nov 2023",
+    points: [
+      "Coordinated fellow corps members, demonstrating communication, teamwork and organisational skills",
+      "Supported team coordination and administrative responsibilities",
     ],
   },
   {

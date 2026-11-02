@@ -54,7 +54,7 @@ async function ogImage() {
     .photo div { width: 100%; height: 100%; border-radius: 11px; background: url(${photo}) center/cover; }
   </style></head><body>
     <div class="text">
-      <div class="hello"><span>Entry-Level Full-Stack Software Engineer</span></div>
+      <div class="hello"><span>Junior Full-Stack Developer</span></div>
       <h1>Hi, I'm Chukwu Chinecherem.</h1>
       <p>Port Harcourt, Nigeria · React, Next.js, TypeScript, Python, FastAPI, PostgreSQL</p>
     </div>

@@ -1,6 +1,6 @@
 import type { Project } from "@/lib/types";
 
-// FleetPulse, EchoVault Nexus and GhostWork. Every statement was checked against each project's README, docs and
+// FleetPulse, EchoVault Nexus and GhostWork, marked In Development to match the CV. Every statement was checked against each project's README, docs and
 // source. None of the three has been deployed, and the repositories say so; keep that visible here.
 
 export const fleetpulse: Project = {
@@ -12,7 +12,7 @@ export const fleetpulse: Project = {
     "A multi-tenant fleet management platform: GPS tracking and a live map, trips and dispatch, geofences and alerts, maintenance, fuel and expenses, inspections, reports and billing. Built and tested locally; it has not run in production.",
   category: "full-stack",
   kind: "product",
-  status: "not-deployed",
+  status: "in-development",
   period: "2026",
   accent: "#6fcfc4",
   monogram: "FP",
@@ -104,7 +104,7 @@ export const echovault: Project = {
     "A personal knowledge workspace for capturing notes, grouping them into projects, recording decisions with their reasoning and searching everything. An optional AI assistant answers only from your own records and links its sources.",
   category: "full-stack",
   kind: "product",
-  status: "not-deployed",
+  status: "in-development",
   period: "2026",
   accent: "#8f8cff",
   monogram: "EV",
@@ -193,7 +193,7 @@ export const ghostwork: Project = {
     "A workflow automation platform built around the Living Workflow: the same canvas you design an automation on shows what it is doing while it runs and what each step did afterwards. It has a web app and a Flutter mobile app.",
   category: "full-stack",
   kind: "product",
-  status: "not-deployed",
+  status: "in-development",
   period: "2026",
   accent: "#8b8bff",
   monogram: "GW",

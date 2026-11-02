@@ -1,6 +1,6 @@
 # Chukwu Chinecherem — portfolio
 
-The portfolio of **Chukwu Chinecherem**, Entry-Level Full-Stack Software Engineer, built as a small software product:
+The portfolio of **Chukwu Chinecherem**, Junior Full-Stack Developer, built as a small software product:
 project case studies, engineering notes with real code, and a working contact form, in a calm, editorial design.
 A separate Interactive Lab (puzzle games, a Brain Clash mini quiz, Snake, a terminal) has its own place in the navigation.
 

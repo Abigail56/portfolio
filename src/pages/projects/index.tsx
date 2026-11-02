@@ -15,7 +15,7 @@ export default function WorkPage() {
       />
       <Container className="section-gap mt-14 grid grid-cols-[minmax(0,1fr)] lg:mt-16">
         <section aria-label="Selected work">
-          <div className="grid grid-cols-[minmax(0,1fr)] gap-14 lg:gap-20">
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:gap-10">
             {selectedProjects.map((project, i) => (
               <ProjectShowcase key={project.slug} project={project} index={i} eager={i === 0} />
             ))}

@@ -38,7 +38,7 @@ export default function OverviewPage() {
       <Seo jsonLd={personJsonLd} />
       <Hero />
 
-      <Container className="section-gap mt-16 grid grid-cols-[minmax(0,1fr)] lg:mt-24">
+      <Container className="py-16 lg:py-24">
         <section aria-labelledby="work-title" id="work" className="scroll-mt-24">
           <SectionHeader
             id="work-title"
@@ -52,13 +52,17 @@ export default function OverviewPage() {
               </Link>
             }
           />
-          <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-14 lg:mt-14 lg:gap-20">
+          <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 lg:mt-12 lg:gap-10">
             {selectedProjects.map((project, i) => (
               <ProjectShowcase key={project.slug} project={project} index={i} />
             ))}
           </div>
         </section>
 
+      </Container>
+
+      <div className="border-y border-line bg-surface-2">
+        <Container className="section-gap grid grid-cols-[minmax(0,1fr)] py-16 lg:py-24">
         <section aria-labelledby="about-title" id="about" className="scroll-mt-24">
           <div data-reveal className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
             <div>
@@ -94,6 +98,10 @@ export default function OverviewPage() {
           <SkillGroups className="mt-8 lg:mt-10" />
         </section>
 
+        </Container>
+      </div>
+
+      <Container className="py-16 lg:py-24">
         <section aria-labelledby="experience-title" id="experience" className="scroll-mt-24">
           <SectionHeader id="experience-title" eyebrow="Background" title="Experience and education" />
           <div className="mt-8 lg:mt-10">
@@ -101,6 +109,10 @@ export default function OverviewPage() {
           </div>
         </section>
 
+      </Container>
+
+      <div className="border-y border-line bg-surface-2">
+        <Container className="py-16 lg:py-24">
         <section aria-labelledby="lab-title" id="lab" className="scroll-mt-24">
           <SectionHeader
             id="lab-title"
@@ -129,6 +141,10 @@ export default function OverviewPage() {
           </ul>
         </section>
 
+        </Container>
+      </div>
+
+      <Container className="pt-16 lg:pt-24">
         <section data-reveal aria-labelledby="contact-title" id="contact" className="card scroll-mt-24 rounded-xl px-5 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
           <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-center lg:gap-16">
             <div>

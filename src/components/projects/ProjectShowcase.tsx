@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import { StatusText } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import type { Project } from "@/lib/types";
-import { cn } from "@/lib/cn";
 import { ProjectLinks } from "./ProjectLinks";
 import { ProjectPreview } from "./ProjectPreview";
 
@@ -24,43 +23,28 @@ function Points({ title, items }: { title: string; items: string[] }) {
 }
 
 /**
- * One selected project as an editorial spread: a numbered rule, then the screenshot and the facts side by side,
- * alternating sides down the page. Only the name, the screenshot and the links are links, so each stays reachable alone.
+ * One selected project: a numbered rule, the name and summary beside the screenshot, then features, contribution and
+ * technologies in three columns. Every project uses the same arrangement, so the page reads as one system.
+ * Only the name, the screenshot and the links are links, so each stays reachable alone.
  */
 export function ProjectShowcase({ project, index, eager }: { project: Project; index: number; eager?: boolean }) {
   const href = `/projects/${project.slug}`;
-  const flipped = index % 2 === 1;
+  const stack = project.coreStack ?? project.stack.slice(0, 6);
   return (
-    <article data-reveal aria-labelledby={`${project.slug}-title`} className="border-t border-line-strong pt-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <p className="text-meta flex flex-wrap gap-x-3 text-subtle">
-          <span className="font-mono text-accent">{String(index + 1).padStart(2, "0")}</span>
-          {project.discipline}
-        </p>
-        <StatusText status={project.status} />
-      </div>
-
-      <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-7 lg:grid-cols-12 lg:gap-12">
-        <Link href={href} tabIndex={-1} aria-hidden className={cn("group block lg:col-span-7", flipped && "lg:order-2")}>
-          <ProjectPreview
-            project={project}
-            eager={eager}
-            sizes="(min-width: 1280px) 680px, (min-width: 1024px) 56vw, 100vw"
-            className="[&>div]:transition-colors [&>div]:group-hover:border-accent-line"
-          />
-        </Link>
-        <div className={cn("min-w-0 lg:col-span-5", flipped && "lg:order-1")}>
-          <h3 id={`${project.slug}-title`} className="text-project text-fg">
+    <article data-reveal aria-labelledby={`${project.slug}-title`} className="card overflow-hidden rounded-xl">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-7 p-5 sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-12 lg:p-10">
+        <div className="min-w-0 lg:col-span-5">
+          <p className="text-meta flex flex-wrap gap-x-3 text-subtle">
+            <span className="font-mono text-accent">{String(index + 1).padStart(2, "0")}</span>
+            {project.discipline}
+          </p>
+          <h3 id={`${project.slug}-title`} className="text-subtitle mt-3 text-fg sm:text-[1.875rem]">
             <Link href={href} className="transition-colors hover:text-accent">
               {project.name}
             </Link>
           </h3>
-          <p className="mt-3 text-[0.9375rem] leading-[1.7] text-muted">{project.summary}</p>
-          <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-5">
-            <Points title="Key features" items={project.features.slice(0, 3)} />
-            <Points title="My contribution" items={project.contributions.slice(0, 2)} />
-          </div>
-          <p className="mt-5 font-mono text-xs leading-relaxed text-subtle">{(project.coreStack ?? project.stack.slice(0, 6)).join(" · ")}</p>
+          <p className="mt-4 text-[0.9375rem] leading-[1.7] text-muted">{project.summary}</p>
+          <StatusText status={project.status} className="mt-5" />
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
             <ButtonLink href={href} variant="secondary" className="group">
               Read the case study
@@ -69,6 +53,32 @@ export function ProjectShowcase({ project, index, eager }: { project: Project; i
             </ButtonLink>
             <ProjectLinks project={project} />
           </div>
+        </div>
+        <Link href={href} tabIndex={-1} aria-hidden className="group block max-lg:order-first lg:col-span-7">
+          <ProjectPreview
+            project={project}
+            eager={eager}
+            sizes="(min-width: 1280px) 640px, (min-width: 1024px) 54vw, 100vw"
+            className="[&>div]:transition-colors [&>div]:group-hover:border-accent-line"
+          />
+        </Link>
+      </div>
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 border-t border-line bg-surface-2 p-5 sm:p-8 md:grid-cols-2 lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)_minmax(0,3fr)] lg:gap-12 lg:px-10">
+        <div>
+          <Points title="Key features" items={project.features.slice(0, 3)} />
+        </div>
+        <div>
+          <Points title="My contribution" items={project.contributions.slice(0, 2)} />
+        </div>
+        <div className="md:col-span-2 lg:col-span-1">
+          <h4 className="text-meta font-semibold text-fg">Core technologies</h4>
+          <ul className="mt-2 flex flex-wrap gap-1.5" aria-label="Technologies">
+            {stack.map((tech) => (
+              <li key={tech} className="tag">
+                {tech}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </article>

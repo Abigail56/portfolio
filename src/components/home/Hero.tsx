@@ -13,14 +13,7 @@ export function Hero() {
     <section aria-labelledby="hero-title" className="border-b border-line">
       <Container className="grid grid-cols-[minmax(0,1fr)] items-center gap-10 pb-14 pt-10 sm:pb-20 sm:pt-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-20 lg:pb-24 lg:pt-20">
         <div className="max-lg:order-2">
-          {site.openToOpportunities && (
-            <p className="inline-flex items-center gap-2.5 text-sm text-muted">
-              <span aria-hidden className="size-2 rounded-full bg-success ring-4 ring-success-soft" />
-              {site.availabilityLabel}
-            </p>
-          )}
-
-          <h1 id="hero-title" className="text-hero mt-6 text-fg">
+          <h1 id="hero-title" className="text-hero text-fg">
             <span className="font-normal text-muted">Hi, I&apos;m </span>
             <span className="sm:block">{site.person.name}.</span>
           </h1>
@@ -71,9 +64,9 @@ export function Hero() {
           </ul>
         </div>
 
-        <figure className="w-full max-lg:order-1 max-lg:max-w-[15rem] lg:ml-auto lg:max-w-[22rem]">
+        <figure className="w-full max-lg:order-1 max-lg:mx-auto max-lg:max-w-[16rem] lg:ml-auto lg:max-w-[22rem]">
           <Portrait eager sizes="(min-width: 1024px) 352px, 240px" />
-          <figcaption className="mt-3 flex items-center gap-1.5 text-[0.8125rem] text-muted lg:justify-end">
+          <figcaption className="mt-3 flex items-center justify-center gap-1.5 text-[0.8125rem] text-muted lg:justify-end">
             <MapPin aria-hidden className="size-3.5 text-subtle" />
             {site.person.location}
           </figcaption>

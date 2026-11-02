@@ -106,7 +106,7 @@ export default function CaseStudyPage({ slug }: Props) {
     "The solution",
     "Users and use cases",
     (cs.flows || cs.howItWorks.length > 0) && "How it works",
-    inDev ? "Set up so far" : "Features",
+    "Features",
     "My contribution",
     cs.architecture && "Architecture",
     cs.engineering && "Under the hood",
@@ -245,7 +245,7 @@ export default function CaseStudyPage({ slug }: Props) {
           </Block>
         )}
 
-        <Block title={inDev ? "Set up so far" : "Features"}>
+        <Block title="Features">
           <List items={project.features} />
           {project.planned && (
             <>
@@ -280,7 +280,7 @@ export default function CaseStudyPage({ slug }: Props) {
         )}
 
         <Block title="Implementation">
-          <h3 className="text-card text-fg">{inDev ? "What exists so far" : "What I built"}</h3>
+          <h3 className="text-card text-fg">What I built</h3>
           <div className="mt-3">
             <List items={cs.built} />
           </div>
