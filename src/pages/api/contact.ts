@@ -40,8 +40,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.status(429).json({ ok: false, reason: "rate-limited", error: "Too many messages in a short time. Please try again later or email me directly." });
   }
 
-  const { name, email, message } = parsed.data;
-  const result = await sendContactEmail({ name, email, message });
+  const { name, email, subject, message } = parsed.data;
+  const result = await sendContactEmail({ name, email, subject, message });
   if (result.ok) return res.status(200).json({ ok: true });
 
   if (result.reason === "not-configured") {

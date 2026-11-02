@@ -15,6 +15,8 @@ const routes = [
   "/",
   "/projects",
   "/projects/routebridge",
+  "/projects/fleetpulse",
+  "/projects/ghostwork",
   "/projects/voxplay",
   "/projects/votingui-nextjs",
   "/projects/iotc-landing-page",
@@ -23,6 +25,9 @@ const routes = [
   "/projects/echovault-nexus",
   "/engineering",
   "/playground",
+  "/playground/state-machine",
+  "/playground/idempotency",
+  "/playground/rate-limiter",
   "/playground/developers-mind",
   "/playground/brain-clash",
   "/playground/snake",
@@ -36,6 +41,7 @@ const routes = [
 ];
 const viewports = [
   { name: "phone", width: 360, height: 780 },
+  { name: "tablet", width: 820, height: 1100 },
   { name: "desktop", width: 1440, height: 900 },
 ];
 
@@ -148,13 +154,13 @@ async function checkInteractions(browser) {
   // Hero actions: each does what its label says.
   await page.goto(BASE + "/", { waitUntil: "networkidle" });
   const hero = page.locator("section[aria-labelledby='hero-title']");
-  const heroCv = hero.getByRole("link", { name: /Download CV/ });
+  const heroCv = hero.getByRole("link", { name: /Download My CV/ });
   const heroLinks = {
-    projects: await hero.getByRole("link", { name: "Explore Projects" }).getAttribute("href"),
+    projects: await hero.getByRole("link", { name: "Explore My Work" }).getAttribute("href"),
     cv: await heroCv.getAttribute("href"),
     cvDownload: await heroCv.getAttribute("download"),
-    github: await hero.getByRole("link", { name: /View GitHub/ }).getAttribute("href"),
-    linkedin: await hero.getByRole("link", { name: /Connect on LinkedIn/ }).getAttribute("href"),
+    github: await hero.getByRole("link", { name: /GitHub/ }).getAttribute("href"),
+    linkedin: await hero.getByRole("link", { name: /LinkedIn/ }).getAttribute("href"),
   };
   const [download] = await Promise.all([page.waitForEvent("download"), heroCv.click()]);
   if (
@@ -167,6 +173,9 @@ async function checkInteractions(browser) {
   )
     pass(`hero actions: projects, CV download (${download.suggestedFilename()}), GitHub and LinkedIn`);
   else fail(`hero actions: ${JSON.stringify(heroLinks)}`);
+  const heading = (await hero.getByRole("heading", { level: 1 }).innerText()).replace(/\s+/g, " ");
+  if (heading === "Hi, I'm Chukwu Chinecherem.") pass("hero uses the exact heading");
+  else fail(`hero heading: "${heading}"`);
   const jsonLd = await page.locator('script[type="application/ld+json"]').textContent();
   if (jsonLd && JSON.parse(jsonLd)["@type"] === "Person") pass("home page has Person structured data");
   else fail("home page structured data missing or invalid");
@@ -201,11 +210,37 @@ async function checkInteractions(browser) {
   if (await page.getByText("Player 2's turn").isVisible()) pass("Brain Clash Mini two-player mode passes the turn");
   else fail("Brain Clash Mini two-player turn");
 
-  // Projects page: two featured projects and a card for each of the rest, each linking to its case study.
+  // Engineering experiments: each one really responds.
+  await page.goto(BASE + "/playground/state-machine", { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "delivered", exact: true }).click();
+  const refused = (await page.getByRole("log").innerText()).includes("409 Conflict");
+  await page.getByRole("button", { name: "assigned", exact: true }).click();
+  if (refused && (await page.getByTestId("sm-state").innerText()) === "assigned") pass("state machine refuses an illegal move and allows a legal one");
+  else fail("state machine experiment");
+
+  await page.goto(BASE + "/playground/idempotency", { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "Place order, lose the response" }).click();
+  await page.getByRole("button", { name: "Retry" }).click();
+  const withoutKey = await page.getByTestId("idem-count").innerText();
+  await page.getByRole("button", { name: "Reset" }).click();
+  await page.getByLabel("Send an Idempotency-Key header").check();
+  await page.getByRole("button", { name: "Place order, lose the response" }).click();
+  await page.getByRole("button", { name: "Retry" }).click();
+  const withKey = await page.getByTestId("idem-count").innerText();
+  if (withoutKey.startsWith("2 ") && withKey.startsWith("1 ")) pass("safe retries: duplicate without a key, one order with a key");
+  else fail(`idempotency experiment: ${withoutKey} / ${withKey}`);
+
+  await page.goto(BASE + "/playground/rate-limiter", { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "Send a burst of 8" }).click();
+  const rlLog = await page.getByRole("log").innerText();
+  if ((rlLog.match(/200 OK/g) ?? []).length === 5 && (rlLog.match(/429/g) ?? []).length === 3) pass("rate limiter allows 5 of a burst of 8");
+  else fail(`rate limiter: ${rlLog}`);
+
+  // Projects page: five selected projects and a card for each of the rest, each linking to its case study.
   await page.goto(BASE + "/projects", { waitUntil: "networkidle" });
   const featuredCount = await page.locator("main article[aria-labelledby]").count();
   const rowCount = await page.locator("main li > article h3 a").count();
-  if (featuredCount === 2 && rowCount === 5) pass("Projects page shows 2 featured projects and 5 others");
+  if (featuredCount === 5 && rowCount === 4) pass("Projects page shows 5 selected projects and 4 others");
   else fail(`Projects page: ${featuredCount} featured, ${rowCount} cards`);
 
   // Terminal: real answers, unknown commands are refused.
@@ -272,6 +307,7 @@ async function checkInteractions(browser) {
   }
   await page.getByRole("textbox", { name: "Name", exact: true }).fill("Smoke Test");
   await page.getByRole("textbox", { name: "Email", exact: true }).fill("smoke@example.com");
+  await page.getByRole("textbox", { name: "Subject", exact: true }).fill("Smoke test");
   await page.getByRole("textbox", { name: "Message", exact: true }).fill("This is an automated smoke test of the contact form.");
   const sendButton = page.getByRole("button", { name: "Send message" });
   await sendButton.click();

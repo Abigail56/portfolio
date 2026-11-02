@@ -4,7 +4,7 @@ import handler from "@/pages/api/contact";
 import { contactSchema } from "@/lib/contact";
 import { checkRateLimit, resetRateLimits } from "@/lib/server/rateLimit";
 
-const valid = { name: "Ada Obi", email: "ada@example.com", message: "Hello! I'd like to talk about a frontend role on our team." };
+const valid = { name: "Ada Obi", email: "ada@example.com", subject: "Frontend role", message: "Hello! I'd like to talk about a frontend role on our team." };
 
 function call(body: unknown, method = "POST", ip = "203.0.113.7") {
   const req = { method, body, headers: { "x-forwarded-for": ip }, socket: { remoteAddress: ip } } as unknown as NextApiRequest;
@@ -35,6 +35,7 @@ describe("contact schema", () => {
   it.each([
     [{ ...valid, name: "A" }, "name"],
     [{ ...valid, email: "not-an-email" }, "email"],
+    [{ ...valid, subject: "x" }, "subject"],
     [{ ...valid, message: "too short" }, "message"],
     [{ ...valid, website: "http://spam" }, "website"],
   ])("rejects %o", (input, field) => {

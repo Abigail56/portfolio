@@ -4,6 +4,7 @@ import { z } from "zod";
 export const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(80, "Please keep your name under 80 characters."),
   email: z.string().trim().max(200, "That email address is too long.").pipe(z.email("Please enter a valid email address.")),
+  subject: z.string().trim().min(3, "Please add a short subject.").max(120, "Please keep the subject under 120 characters."),
   message: z
     .string()
     .trim()
@@ -14,7 +15,7 @@ export const contactSchema = z.object({
 });
 
 export type ContactInput = z.input<typeof contactSchema>;
-export type ContactFields = "name" | "email" | "message";
+export type ContactFields = "name" | "email" | "subject" | "message";
 export type ContactErrors = Partial<Record<ContactFields, string>>;
 
 export type ContactResponse =
@@ -25,7 +26,7 @@ export function fieldErrorsFrom(error: z.ZodError): ContactErrors {
   const result: ContactErrors = {};
   for (const issue of error.issues) {
     const field = issue.path[0];
-    if ((field === "name" || field === "email" || field === "message") && !result[field]) {
+    if ((field === "name" || field === "email" || field === "subject" || field === "message") && !result[field]) {
       result[field] = issue.message;
     }
   }

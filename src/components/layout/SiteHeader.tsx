@@ -70,9 +70,9 @@ export function SiteHeader() {
 
         <div className="ml-auto flex items-center gap-2 lg:ml-0 lg:gap-3">
           <ThemeToggle />
-          <ButtonLink href={site.cv.href} download={site.cv.fileName} size="sm" className="max-sm:hidden">
+          <ButtonLink href={site.cv.href} download={site.cv.fileName} size="sm" className="max-sm:w-10 max-sm:px-0">
             <Download aria-hidden className="size-4" />
-            Download CV
+            <span className="max-sm:sr-only">Download CV</span>
           </ButtonLink>
           <button
             ref={toggleRef}
@@ -107,8 +107,12 @@ export function SiteHeader() {
                 );
               })}
               <li>
-                <Link href={site.cv.viewHref} className="block py-3.5 text-base font-medium text-muted hover:text-fg">
-                  View CV
+                <Link
+                  href={site.cv.viewHref}
+                  aria-current={isActive(pathname, site.cv.viewHref) ? "page" : undefined}
+                  className={cn("block py-3.5 text-base font-medium", isActive(pathname, site.cv.viewHref) ? "text-fg" : "text-muted hover:text-fg")}
+                >
+                  CV
                 </Link>
               </li>
             </ul>

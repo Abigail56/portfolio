@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 
-/** The header wordmark: a monogram and the person's name (the name hides on very narrow screens). */
+/** The header wordmark: a monogram and the person's name (the name is visually hidden on phones, where the header has less room). */
 export function BrandMark() {
   const initials = site.person.name
     .split(" ")
@@ -12,7 +12,7 @@ export function BrandMark() {
       <span aria-hidden className="grid size-9 place-items-center rounded-lg border border-line-strong bg-surface-2 text-[0.8125rem] font-semibold tracking-normal text-fg">
         {initials}
       </span>
-      <span className="max-[359px]:sr-only">{site.person.name}</span>
+      <span className="max-[439px]:sr-only">{site.person.name}</span>
     </Link>
   );
 }

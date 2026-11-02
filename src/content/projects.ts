@@ -1,12 +1,14 @@
 import type { Project, ProjectCategory, ProjectStatus } from "@/lib/types";
+import { echovault, fleetpulse, ghostwork } from "./projects-recent";
 
 // Every statement below was checked against the project's repository (README, source and config).
 // Before adding a claim, check it against the code. Before marking a project "live", check that the URL responds.
 
-export const projects: Project[] = [
+const earlier: Project[] = [
   {
     slug: "routebridge",
     name: "RouteBridge Logistics",
+    discipline: "Multi-tenant logistics platform",
     tagline: "Last-mile delivery operations for Nigerian delivery companies.",
     summary:
       "A multi-tenant platform where delivery companies take orders from their merchants, dispatch them to drivers, track every delivery live, collect cash on delivery and reconcile it at the end of the day.",
@@ -78,6 +80,10 @@ export const projects: Project[] = [
       "Packaged the whole system (database, cache, file storage, API, three workers, web app) for a single docker compose command",
     ],
     caseStudy: {
+      motivation:
+        "Delivery here depends on cash collected at the door and riders whose connection can drop at any time, so the software has to treat both as normal conditions rather than edge cases.",
+      solution:
+        "One multi-tenant system for orders, dispatch, live tracking, proof of delivery and cash reconciliation, with an offline-first driver app whose events sync safely when the connection returns.",
       problem:
         "A delivery company has to know where every parcel is, prove that it reached the right person, and account for the cash its riders collect on delivery. RouteBridge puts orders, riders, proof of delivery and cash reconciliation in one system, and keeps working when a rider's connection doesn't.",
       audience:
@@ -296,6 +302,7 @@ if target not in ALLOWED_TRANSITIONS.get(job.status, set()):
   {
     slug: "voxplay",
     name: "VoxPlay",
+    discipline: "Real-time multiplayer game platform",
     tagline: "Voice-powered party games, played from your own phone.",
     summary:
       "A social gaming platform of real-time multiplayer games: a team quiz (Brain Clash), a humming game, a story duel, a word game and Who's Talking?, a voice game where an AI works out who is speaking.",
@@ -372,6 +379,10 @@ if target not in ALLOWED_TRANSITIONS.get(job.status, set()):
       "Tested the voice game end to end with three separate browsers using synthetic voices on fake microphones",
     ],
     caseStudy: {
+      motivation:
+        "Real-time games make state, timing and reconnection problems visible immediately, and they need many people on separate devices to agree on what just happened.",
+      solution:
+        "Rooms that players join from their own phones, with the server owning all game state and telling each phone when something changes.",
       problem:
         "Group games at a party or in a group chat usually need one shared screen or everyone in the same room. VoxPlay lets each person play from their own phone, using their voice, with the server keeping the game fair.",
       audience:
@@ -877,69 +888,11 @@ result.winner = candidates.reduce((best, c) => (votes[c] > votes[best] ? c : bes
       nextSteps: ["Publish it on GitHub Pages", "Add aria-expanded to the mobile menu button (it already has an aria-label) so screen readers know when the menu is open"],
     },
   },
-  {
-    slug: "echovault-nexus",
-    name: "EchoVault Nexus",
-    tagline: "A new full-stack project, in its early setup stage.",
-    summary:
-      "My current project. So far it has its configuration, database setup and project structure; there are no product features to show yet, so this page lists only what exists.",
-    category: "full-stack",
-    kind: "product",
-    status: "in-development",
-    period: "Started Oct 2026",
-    accent: "#45c4d6",
-    monogram: "EV",
-    featured: false,
-    links: {},
-    repoNote: "The repository isn't published yet.",
-    stack: [
-      "Python",
-      "FastAPI",
-      "SQLModel",
-      "PostgreSQL 17 + pgvector",
-      "Alembic",
-      "PyJWT",
-      "pwdlib (Argon2)",
-      "Next.js 16",
-      "Tailwind CSS v4",
-      "DaisyUI",
-    ],
-    features: [
-      "Typed settings with pydantic-settings: database URL, JWT secret and algorithm, 15-minute access tokens, allowed frontend origin",
-      "Docker Compose database: PostgreSQL 17 with pgvector, bound to localhost only, with a health check",
-      "Backend package structure for auth and knowledge endpoints, models, schemas, services and an AI module",
-    ],
-    contributions: ["Sole developer"],
-    caseStudy: {
-      problem:
-        "Not described yet. I'll write up the problem it solves once the first feature works, rather than describe a product that doesn't exist yet.",
-      audience: "To be defined with the first release.",
-      built: [
-        "Backend configuration loaded from environment variables, with no secrets in the code (.env.example documents each setting)",
-        "A local PostgreSQL 17 + pgvector database in Docker Compose, reachable only from this machine",
-        "Dependencies chosen for authentication (PyJWT, Argon2 hashing via pwdlib), migrations (Alembic) and tests (Pytest)",
-        "A Next.js 16 frontend with Tailwind CSS v4 and DaisyUI",
-      ],
-      howItWorks: [],
-      decisions: [
-        {
-          title: "Short-lived access tokens from day one",
-          detail: "Access tokens are set to expire after 15 minutes in the default configuration, before any endpoint exists.",
-        },
-        {
-          title: "Database not exposed to the network",
-          detail: "The development database binds to 127.0.0.1, so it isn't reachable from other machines on the network.",
-        },
-      ],
-      challenges: [],
-      nextSteps: [
-        "Implement registration and sign-in with hashed passwords and JWT access tokens",
-        "Add the first database models and their Alembic migrations",
-        "Publish the repository and write this case study properly",
-      ],
-    },
-  },
 ];
+
+// Selected work first, strongest first; this order drives the home page, the Projects page and case-study navigation.
+const [routebridge, voxplay, ...training] = earlier as [Project, Project, ...Project[]];
+export const projects: Project[] = [routebridge, fleetpulse, echovault, ghostwork, voxplay, ...training];
 
 export const statusLabels: Record<ProjectStatus, string> = {
   live: "Live Demo",
@@ -963,5 +916,6 @@ export function getAdjacentProjects(slug: string): { previous?: Project; next?: 
   return { previous: projects[index - 1], next: projects[index + 1] };
 }
 
-/** The smaller projects shown on the home page, strongest first. The rest are on /projects. */
-export const homeAdditionalSlugs = ["votingui-nextjs", "iotc-landing-page", "votingui-dom"] as const;
+/** The training projects, shown more compactly after the selected work. */
+export const selectedProjects = projects.filter((p) => p.featured);
+export const earlierProjects = projects.filter((p) => !p.featured);

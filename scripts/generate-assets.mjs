@@ -43,20 +43,20 @@ async function ogImage() {
   const html = `<!doctype html><html><head><style>
     @font-face { font-family: Body; src: url(${font("Inter-latin.woff2")}); font-weight: 100 900; }
     * { margin: 0; box-sizing: border-box; }
-    body { width: 1200px; height: 630px; background: #f4f7fc; color: #192235; font-family: Body; display: flex; overflow: hidden; position: relative; }
+    body { width: 1200px; height: 630px; background: #0b1020; color: #f5f7fc; font-family: Body; display: flex; overflow: hidden; position: relative; }
     .text { padding: 84px 0 76px 88px; display: flex; flex-direction: column; width: 770px; }
     .hello { font-size: 24px; font-weight: 600; letter-spacing: -.005em; }
-    .hello span { color: #3549d8; font-weight: 500; }
+    .hello span { color: #7c9bff; font-weight: 500; }
     h1 { font-size: 62px; line-height: 1.06; letter-spacing: -.04em; margin-top: 30px; font-weight: 620; }
-    p { margin-top: auto; font-size: 24px; color: #586780; }
+    p { margin-top: auto; font-size: 24px; color: #a3adc2; }
     .photo { position: absolute; right: 88px; top: 84px; width: 300px; height: 375px; border-radius: 16px; padding: 6px;
-      background: #fff; border: 1px solid #d8e0ed; box-shadow: 0 24px 48px -24px rgba(25,34,53,.25); }
+      background: #131d31; border: 1px solid #33405e; }
     .photo div { width: 100%; height: 100%; border-radius: 11px; background: url(${photo}) center/cover; }
   </style></head><body>
     <div class="text">
-      <div class="hello">Chukwu Chinecherem <span>· Full-Stack Software Engineer</span></div>
-      <h1>Building thoughtful digital products, from frontend to backend.</h1>
-      <p>Port Harcourt, Nigeria · React, Next.js, Python, FastAPI</p>
+      <div class="hello"><span>Entry-Level Full-Stack Software Engineer</span></div>
+      <h1>Hi, I'm Chukwu Chinecherem.</h1>
+      <p>Port Harcourt, Nigeria · React, Next.js, TypeScript, Python, FastAPI, PostgreSQL</p>
     </div>
     <div class="photo"><div></div></div>
   </body></html>`;

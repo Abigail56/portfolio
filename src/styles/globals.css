@@ -215,7 +215,7 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-heading), var(--font-body), ui-sans-serif, system-ui, sans-serif;
     letter-spacing: -0.02em;
     line-height: 1.2;
     font-weight: 600;
@@ -263,6 +263,13 @@
 
   /* Type scale. Sizes are fluid between phone and desktop with clamp(), so there are no jumps at breakpoints.
      Desktop targets: hero 60, section 38, project 28, secondary 24, card 17, body 16, meta 13, tags 12. */
+  /* The name in the hero: the largest type on the site. */
+  .text-hero {
+    font-size: clamp(2.625rem, 1.8rem + 3.4vw, 4.5rem); /* 42px → 72px */
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
   .text-display {
     font-size: clamp(2.5rem, 1.75rem + 2.6vw, 3.75rem); /* 40px → 60px */
     line-height: 1.06;
@@ -382,18 +389,6 @@
     line-height: 1;
     letter-spacing: 0.005em;
     white-space: nowrap;
-  }
-  /* A dark panel with its own fixed colours, the same in both themes: VoxPlay's card. */
-  .panel-ink {
-    background-color: #121833;
-    background-image: radial-gradient(90% 70% at 100% 0%, rgb(124 92 255 / 0.16), transparent 65%);
-    border: 1px solid #262e52;
-    color: #f2f4fb;
-  }
-  .tag-ink {
-    border-color: rgb(255 255 255 / 0.14);
-    background-color: rgb(255 255 255 / 0.06);
-    color: #d3d8ea;
   }
   .prose-body > * + * {
     margin-top: 1.1rem;

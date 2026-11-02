@@ -1,19 +1,20 @@
 import Link from "next/link";
 import { BookOpenCheck, Download, ListChecks, ShieldAlert } from "lucide-react";
+import { Experience } from "@/components/home/Experience";
 import { SkillGroups } from "@/components/home/SkillGroups";
 import { Seo } from "@/components/layout/Seo";
 import { ButtonLink } from "@/components/ui/Button";
 import { Portrait } from "@/components/ui/Portrait";
 import { Container, SectionHeader } from "@/components/ui/Section";
 import { site } from "@/config/site";
-import { aboutParagraphs, languages, principles, timeline } from "@/content/profile";
+import { aboutParagraphs, principles } from "@/content/profile";
 
 const principleIcons = [ListChecks, ShieldAlert, BookOpenCheck];
 
 export default function AboutPage() {
   return (
     <>
-      <Seo title="About" description="Chukwu Chinecherem: background, toolkit and experience." />
+      <Seo title="About" description="Chukwu Chinecherem: an entry-level full-stack software engineer with a background in Building Technology. Skills, training, experience and education." />
 
       <Container className="pt-14 sm:pt-20">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-10 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-14">
@@ -37,7 +38,6 @@ export default function AboutPage() {
                 <Download aria-hidden className="size-4" />
                 Download CV
               </ButtonLink>
-              <span className="text-sm text-muted">Languages: {languages.map((l) => `${l.name} (${l.level.toLowerCase()})`).join(", ")}</span>
             </div>
           </div>
         </div>
@@ -70,27 +70,15 @@ export default function AboutPage() {
         </section>
 
         <section id="toolkit" aria-labelledby="toolkit-title" className="scroll-mt-24">
-          <SectionHeader id="toolkit-title" eyebrow="Toolkit" title="What I work with" />
+          <SectionHeader id="toolkit-title" eyebrow="Technical skills" title="What I build with" />
           <SkillGroups className="mt-8" />
         </section>
 
         <section id="experience" aria-labelledby="experience-title" className="scroll-mt-24">
-          <SectionHeader id="experience-title" eyebrow="Experience" title="Training, work and education" />
-          <ol className="card mt-8 rounded-2xl">
-            {timeline.map((entry) => (
-              <li key={entry.title} className="grid grid-cols-[minmax(0,1fr)] gap-1 border-b border-line p-6 last:border-b-0 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-8">
-                <p className="text-sm text-subtle">{entry.period}</p>
-                <div>
-                  <h3 className="text-card text-fg">{entry.title}</h3>
-                  <p className="mt-0.5 text-sm text-muted">
-                    {entry.organisation}
-                    {entry.location && `, ${entry.location}`}
-                  </p>
-                  {entry.points[0] && <p className="mt-2 text-sm leading-relaxed text-muted">{entry.points[0]}</p>}
-                </div>
-              </li>
-            ))}
-          </ol>
+          <SectionHeader id="experience-title" eyebrow="Background" title="Experience and education" />
+          <div className="mt-8">
+            <Experience />
+          </div>
         </section>
       </Container>
     </>

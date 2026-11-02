@@ -4,6 +4,7 @@
 export interface ContactMessage {
   name: string;
   email: string;
+  subject: string;
   message: string;
 }
 
@@ -23,7 +24,7 @@ export async function sendContactEmail(msg: ContactMessage, env: NodeJS.ProcessE
         from,
         to: [to],
         reply_to: msg.email,
-        subject: `Portfolio message from ${msg.name}`,
+        subject: `[Portfolio] ${msg.subject}`,
         text: `${msg.message}\n\n---\nFrom: ${msg.name} <${msg.email}>\nSent via the contact form on the portfolio of Chukwu Chinecherem`,
       }),
       signal: AbortSignal.timeout(10_000),

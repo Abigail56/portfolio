@@ -1,6 +1,6 @@
 # Chukwu Chinecherem — portfolio
 
-The portfolio of **Chukwu Chinecherem**, Full-Stack Software Engineer, built as a small software product:
+The portfolio of **Chukwu Chinecherem**, Entry-Level Full-Stack Software Engineer, built as a small software product:
 project case studies, engineering notes with real code, and a working contact form, in a calm, editorial design.
 A separate Interactive Lab (puzzle games, a Brain Clash mini quiz, Snake, a terminal) has its own place in the navigation.
 
@@ -57,7 +57,7 @@ Everything visitors read comes from typed files in `src/content` and `src/config
 | `src/config/site.ts` | Brand name, role, contact details, links, CV path, the "open to opportunities" switch, navigation |
 | `src/content/projects.ts` | Projects and their case studies (status, links, screenshots, architecture, code excerpt) |
 | `src/content/engineering.ts` | Engineering topics and code excerpts |
-| `src/content/profile.ts` | About text, engineering principles, skills (five groups), experience timeline |
+| `src/content/profile.ts` | About text, engineering principles, skills (four groups), experience timeline |
 | `src/content/playground.ts` | Quiz questions, bug challenges, memory pairs |
 
 `npm test` checks the content: slugs, https links, that screenshots and the CV exist, that "live" projects have a live

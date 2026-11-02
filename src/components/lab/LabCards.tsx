@@ -42,44 +42,37 @@ export function LabCards() {
         </div>
       </article>
 
-      <article
-        data-reveal
-        style={{ transitionDelay: "80ms" }}
-        className="flex flex-col rounded-2xl border border-[#2a2257] bg-[#120e2b] p-5 text-white [background-image:radial-gradient(120%_80%_at_100%_0%,rgb(124_92_255/0.2),transparent_60%)] sm:p-7"
-      >
-        <div aria-hidden className="rounded-xl border border-white/10 bg-white/[0.04] p-5 text-sm">
-          <div className="flex items-center justify-between text-xs text-[#c3bde3]">
+      <article data-reveal style={{ transitionDelay: "80ms" }} className="card flex flex-col rounded-2xl p-5 sm:p-7">
+        <div aria-hidden className="rounded-xl border border-line bg-surface-2 p-5 text-sm">
+          <div className="flex items-center justify-between text-xs text-subtle">
             <span className="inline-flex items-center gap-1.5">
-              <Zap className="size-3.5 text-[#a99bff]" />
+              <Zap className="size-3.5 text-accent" />
               Riddles · Question 3 of 5
             </span>
             <span className="font-mono tabular-nums">12s</span>
           </div>
-          <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-[#5b7cfa] to-[#a77bff]" />
+          <div className="mt-3 h-1 overflow-hidden rounded-full bg-surface-3">
+            <div className="h-full w-4/5 rounded-full bg-accent-solid" />
           </div>
-          <p className="mt-4 font-medium leading-snug">The more you take, the more you leave behind. What are they?</p>
+          <p className="mt-4 font-medium leading-snug text-fg">The more you take, the more you leave behind. What are they?</p>
           <div className="mt-4 grid grid-cols-2 gap-1.5 text-xs">
             {["Photos", "Footsteps", "Breaths", "Notes"].map((n) => (
-              <span key={n} className="rounded-md border border-white/12 px-2.5 py-1.5 text-[#d9d4f5]">
+              <span key={n} className="rounded-md border border-line bg-surface px-2.5 py-1.5 text-muted">
                 {n}
               </span>
             ))}
           </div>
         </div>
-        <h3 className="text-subtitle mt-6">{clash.name}</h3>
-        <p className="mt-2 text-[0.9375rem] leading-relaxed text-[#c3bde3]">{clash.summary}</p>
-        <p className="text-meta mt-3 text-[#a9a3c9]">{clash.meta}</p>
+        <h3 className="text-subtitle mt-6 text-fg">{clash.name}</h3>
+        <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted">{clash.summary}</p>
+        <p className="text-meta mt-3 text-subtle">{clash.meta}</p>
         <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-6">
-          <Link
-            href={`/playground/${clash.id}`}
-            className="group inline-flex h-10 items-center gap-2 rounded-lg bg-gradient-to-r from-[#4f6ff5] to-[#8b5cf6] px-4 text-sm font-medium text-white transition-[filter] hover:brightness-110 focus-visible:outline-[#a99bff]"
-          >
+          <ButtonLink href={`/playground/${clash.id}`} className="group">
             Play now
             <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             <span className="sr-only">: {clash.name}</span>
-          </Link>
-          <Link href="/projects/voxplay" className="text-sm font-medium text-[#d9d4f5] underline decoration-white/30 underline-offset-4 hover:text-white hover:decoration-white">
+          </ButtonLink>
+          <Link href="/projects/voxplay" className="link-arrow">
             Explore VoxPlay
           </Link>
         </div>

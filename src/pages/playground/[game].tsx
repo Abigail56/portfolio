@@ -28,6 +28,9 @@ const components: Record<GameId, ComponentType> = {
   "code-quest": dynamic(() => import("@/components/playground/CodeQuest").then((m) => m.CodeQuest)),
   "bug-hunter": dynamic(() => import("@/components/playground/BugHunter").then((m) => m.BugHunter)),
   "memory-match": dynamic(() => import("@/components/playground/MemoryMatch").then((m) => m.MemoryMatch)),
+  "state-machine": dynamic(() => import("@/components/lab/Experiments").then((m) => m.StateMachineLab)),
+  idempotency: dynamic(() => import("@/components/lab/Experiments").then((m) => m.IdempotencyLab)),
+  "rate-limiter": dynamic(() => import("@/components/lab/Experiments").then((m) => m.RateLimiterLab)),
   terminal: dynamic(() => import("@/components/playground/DevTerminal").then((m) => m.DevTerminal)),
 };
 

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "sent" } | { kind: "failed"; message: string };
 
-const empty = { name: "", email: "", message: "", website: "" };
+const empty = { name: "", email: "", subject: "", message: "", website: "" };
 const MESSAGE_MAX = 4000;
 
 const inputClass =
@@ -20,6 +20,7 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const subjectRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
 
@@ -46,10 +47,10 @@ export function ContactForm() {
 
     const found = validate();
     setErrors(found);
-    setTouched({ name: true, email: true, message: true });
-    const firstInvalid = (["name", "email", "message"] as const).find((f) => found[f]);
+    setTouched({ name: true, email: true, subject: true, message: true });
+    const firstInvalid = (["name", "email", "subject", "message"] as const).find((f) => found[f]);
     if (firstInvalid) {
-      const target = { name: nameRef, email: emailRef, message: messageRef }[firstInvalid];
+      const target = { name: nameRef, email: emailRef, subject: subjectRef, message: messageRef }[firstInvalid];
       target.current?.focus();
       return;
     }
@@ -162,6 +163,28 @@ export function ContactForm() {
             </p>
           )}
         </div>
+      </div>
+
+      <div>
+        <label htmlFor="contact-subject" className="mb-1.5 block text-sm font-medium text-fg">
+          Subject
+        </label>
+        <input
+          ref={subjectRef}
+          id="contact-subject"
+          name="subject"
+          required
+          maxLength={120}
+          value={values.subject}
+          onChange={(e) => update("subject", e.target.value)}
+          onBlur={() => blur("subject")}
+          {...field("subject")}
+        />
+        {touched.subject && errors.subject && (
+          <p id="subject-error" className="mt-1.5 text-sm text-danger">
+            {errors.subject}
+          </p>
+        )}
       </div>
 
       <div>

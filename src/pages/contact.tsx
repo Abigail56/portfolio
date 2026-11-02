@@ -33,13 +33,13 @@ const channels: Channel[] = [
 export default function ContactPage() {
   return (
     <>
-      <Seo title="Contact" description={`Contact ${site.person.name} by email, phone, LinkedIn or the contact form.`} />
+      <Seo title="Contact" description={`Contact ${site.person.name} about software engineering roles and collaborations, by email, LinkedIn, GitHub or the contact form.`} />
       <PageHeader
         eyebrow="Get in touch"
-        title="Contact"
+        title="Let's talk"
         lead={
           site.openToOpportunities
-            ? "I'm open to software engineering roles. Email is the quickest way to reach me; the form sends to the same inbox."
+            ? "I'm open to software engineering internships and junior developer roles, and glad to hear from engineering teams and collaborators. The form and my email reach the same inbox."
             : "Email is the quickest way to reach me; the form sends to the same inbox."
         }
       />

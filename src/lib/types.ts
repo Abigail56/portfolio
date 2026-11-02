@@ -70,6 +70,10 @@ export interface Flow {
 
 export interface CaseStudy {
   problem: string;
+  /** Why the problem is worth solving this way. */
+  motivation?: string;
+  /** The proposed solution in a sentence or two; falls back to the project summary. */
+  solution?: string;
   audience: string;
   built: string[];
   howItWorks: string[];
@@ -95,6 +99,8 @@ export interface CaseStudy {
 export interface Project {
   slug: string;
   name: string;
+  /** The kind of product, shown beside its name: "Multi-tenant logistics platform". */
+  discipline?: string;
   tagline: string;
   summary: string;
   category: ProjectCategory;
@@ -130,7 +136,7 @@ export interface SkillGroup {
   skills: { name: string; projects?: string[] }[];
 }
 
-export type TimelineKind = "training" | "employment" | "education";
+export type TimelineKind = "training" | "employment" | "leadership" | "education";
 
 export interface TimelineEntry {
   kind: TimelineKind;

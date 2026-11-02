@@ -31,7 +31,7 @@ export function PlaygroundShell({ game, children }: { game: GameInfo; children: 
       </header>
       <Container className="pb-10">
         {children}
-        <nav aria-label="Other games" className="mt-12 border-t border-line pt-6">
+        <nav aria-label="More in the Lab" className="mt-12 border-t border-line pt-6">
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {games.map((g) => (
               <li key={g.id}>

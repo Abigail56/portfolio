@@ -1,7 +1,7 @@
 // The game list stays free of the games' own content, so pages that only link to games don't load it.
 // tests/lab.test.ts checks that each `meta` states the real number of questions, pairs or commands.
 
-export type GameId = "developers-mind" | "brain-clash" | "snake" | "code-quest" | "bug-hunter" | "memory-match" | "terminal";
+export type GameId = "developers-mind" | "brain-clash" | "snake" | "code-quest" | "bug-hunter" | "memory-match" | "terminal" | "state-machine" | "idempotency" | "rate-limiter";
 
 export interface GameInfo {
   id: GameId;
@@ -11,9 +11,35 @@ export interface GameInfo {
   meta: string;
   /** Featured games get a card in the Interactive Lab on the home page; the rest are listed on the Lab page. */
   featured?: boolean;
+  /** Engineering experiments demonstrate a concept from a real project; games are for play. */
+  kind?: "experiment";
 }
 
 export const games: GameInfo[] = [
+  {
+    id: "state-machine",
+    name: "Delivery State Machine",
+    summary: "Move a delivery through RouteBridge's real transition table, and try to break it.",
+    detail: "These are the states and rules from RouteBridge's ALLOWED_TRANSITIONS table. Try any move: the ones the table doesn't allow are refused with the same 409 the API returns.",
+    meta: "From RouteBridge · operations.py",
+    kind: "experiment",
+  },
+  {
+    id: "idempotency",
+    name: "Safe Retries",
+    summary: "See how a lost response creates a duplicate order, and how an idempotency key stops it.",
+    detail: "A simulated client and server. Lose a response, retry, and compare what the server stores with and without an Idempotency-Key header. Nothing leaves your browser.",
+    meta: "Concept used in RouteBridge order creation",
+    kind: "experiment",
+  },
+  {
+    id: "rate-limiter",
+    name: "Rate Limiter",
+    summary: "Send requests into a sliding window and watch when they get a 429.",
+    detail: "Runs the same window function that protects this site's contact form, with a shorter window so you can watch requests expire. Requests here are simulated.",
+    meta: "Same code as this site's contact API",
+    kind: "experiment",
+  },
   {
     id: "developers-mind",
     name: "The Developer's Mind",

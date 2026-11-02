@@ -102,6 +102,8 @@ export default function CaseStudyPage({ slug }: Props) {
   const sections = [
     project.highlights && "At a glance",
     "The problem",
+    cs.motivation && "Motivation",
+    "The solution",
     "Users and use cases",
     (cs.flows || cs.howItWorks.length > 0) && "How it works",
     inDev ? "Set up so far" : "Features",
@@ -128,7 +130,7 @@ export default function CaseStudyPage({ slug }: Props) {
             <ArrowLeft aria-hidden className="size-4" />
             All projects
           </Link>
-          <p className="eyebrow mt-8">{project.featured ? "Featured case study" : "Case study"}</p>
+          <p className="eyebrow mt-8">{project.discipline ?? "Case study"}</p>
           <h1 className="text-display mt-3 text-fg">{project.name}</h1>
           <p className="text-lead mt-5 max-w-[42rem] text-muted">{project.summary}</p>
           <ProjectLinks project={project} explain className="mt-6" />
@@ -203,6 +205,16 @@ export default function CaseStudyPage({ slug }: Props) {
 
         <Block title="The problem">
           <p className="measure text-lead text-fg">{cs.problem}</p>
+        </Block>
+
+        {cs.motivation && (
+          <Block title="Motivation">
+            <p className="measure leading-relaxed text-muted">{cs.motivation}</p>
+          </Block>
+        )}
+
+        <Block title="The solution">
+          <p className="measure leading-relaxed text-muted">{cs.solution ?? project.summary}</p>
         </Block>
 
         <Block title="Users and use cases">
