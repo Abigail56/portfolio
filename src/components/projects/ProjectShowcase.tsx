@@ -31,7 +31,7 @@ export function ProjectShowcase({ project, index, eager }: { project: Project; i
   const href = `/projects/${project.slug}`;
   const stack = project.coreStack ?? project.stack.slice(0, 6);
   return (
-    <article data-reveal aria-labelledby={`${project.slug}-title`} className="card card-hover overflow-hidden rounded-xl">
+    <article data-reveal aria-labelledby={`${project.slug}-title`} className="card card-hover overflow-hidden rounded-[1.5rem]">
       <div className="grid grid-cols-[minmax(0,1fr)] gap-7 p-5 sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-12 lg:p-10">
         <div className="min-w-0 lg:col-span-5">
           <p className="text-meta flex flex-wrap gap-x-3 text-subtle">
