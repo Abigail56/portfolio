@@ -90,7 +90,7 @@ export function Hero() {
 
         <figure className="relative w-full max-lg:order-1 max-lg:mx-auto max-lg:max-w-[16rem] lg:ml-auto lg:max-w-[22rem]">
           <div className="soft-panel relative overflow-hidden rounded-[2rem] border border-line bg-surface-2/80 p-3 shadow-[0_24px_72px_-32px_rgba(0,0,0,0.75)]">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(127,157,255,0.36),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(79,162,246,0.24),transparent_30%)]" aria-hidden />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--glow),transparent_28%),radial-gradient(circle_at_bottom_right,color-mix(in_srgb,var(--brand-4)_24%,transparent),transparent_30%)]" aria-hidden />
             <Portrait eager sizes="(min-width: 1024px) 352px, 240px" />
             <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-t border-line pt-4">
               <div>

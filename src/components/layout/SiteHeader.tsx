@@ -40,57 +40,55 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 px-3 pt-3 sm:px-4 md:pt-4">
-      <div className="soft-panel mx-auto max-w-[1180px] rounded-full bg-[color-mix(in_srgb,var(--bg)_86%,transparent)] shadow-[0_16px_40px_-24px_rgba(0,0,0,0.55)] backdrop-blur-xl">
-        <Container className="flex h-16 items-center gap-8">
-          <BrandMark />
+    <header className="relative z-40 border-b border-line bg-bg">
+      <Container className="flex h-16 items-center gap-8">
+        <BrandMark />
 
-          <nav aria-label="Main" className="ml-auto hidden lg:block">
-            <ul className="flex items-center gap-7">
-              {[...navItems, { label: "CV", href: site.cv.viewHref }].map((item) => {
-                const active = isActive(pathname, item.href);
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "relative text-sm font-medium tracking-[0.005em] transition-colors",
-                        active
-                          ? "text-fg after:absolute after:inset-x-0 after:-bottom-[1.5625rem] after:h-px after:bg-accent"
-                          : "text-muted hover:text-fg",
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+        <nav aria-label="Main" className="ml-auto hidden lg:block">
+          <ul className="flex items-center gap-7">
+            {[...navItems, { label: "CV", href: site.cv.viewHref }].map((item) => {
+              const active = isActive(pathname, item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "relative text-sm font-medium tracking-[0.005em] transition-colors",
+                      active
+                        ? "text-fg after:absolute after:inset-x-0 after:-bottom-[1.5625rem] after:h-px after:bg-accent"
+                        : "text-muted hover:text-fg",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
-          <div className="ml-auto flex items-center gap-2 lg:ml-0 lg:gap-3">
-            <ThemeToggle />
-            <ButtonLink href={site.cv.href} download={site.cv.fileName} size="sm" className="max-sm:w-10 max-sm:px-0">
-              <Download aria-hidden className="size-4" />
-              <span className="max-sm:sr-only">Download CV</span>
-            </ButtonLink>
-            <button
-              ref={toggleRef}
-              type="button"
-              className="inline-flex size-10 items-center justify-center rounded-lg text-fg transition-colors hover:bg-surface-2 lg:hidden"
-              aria-expanded={menuOpen}
-              aria-controls={menuId}
-              onClick={() => setMenuOpen((open) => !open)}
-            >
-              {menuOpen ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
-              <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
-            </button>
-          </div>
-        </Container>
-      </div>
+        <div className="ml-auto flex items-center gap-2 lg:ml-0 lg:gap-3">
+          <ThemeToggle />
+          <ButtonLink href={site.cv.href} download={site.cv.fileName} size="sm" className="max-sm:w-10 max-sm:px-0">
+            <Download aria-hidden className="size-4" />
+            <span className="max-sm:sr-only">Download CV</span>
+          </ButtonLink>
+          <button
+            ref={toggleRef}
+            type="button"
+            className="inline-flex size-10 items-center justify-center rounded-lg text-fg transition-colors hover:bg-surface-2 lg:hidden"
+            aria-expanded={menuOpen}
+            aria-controls={menuId}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
+            <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
+          </button>
+        </div>
+      </Container>
 
-      <div id={menuId} hidden={!menuOpen} className="soft-panel mx-auto mt-2 max-w-[1180px] rounded-2xl border-t border-line bg-bg/90 lg:hidden">
+      <div id={menuId} hidden={!menuOpen} className="border-t border-line bg-bg lg:hidden">
         <Container className="py-4">
           <nav aria-label="Main (mobile)">
             <ul className="divide-y divide-line">

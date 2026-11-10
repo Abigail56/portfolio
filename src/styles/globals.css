@@ -2,93 +2,91 @@
 
 /* ------------------------------------------------------------------------------------------------
    Design tokens
-   A dark navy theme by default (#0b1020 page, #10182a/#131d31 surfaces, #4776f5 accent) and a clean light theme
-   (#f8fafc page, white cards, #4f46e5 accent) from the toggle. The accent is kept for primary actions, links, focus and selected states. Every colour is defined once per theme; components only use the Tailwind names
-   mapped in @theme below (bg-surface, text-muted, border-line…). tests/contrast.test.ts checks them.
+   A warm dark theme by default (#171310 page, #201b19/#261f1d surfaces) and a light theme
+   (#f6f1ea page, #fffdf9 cards) from the toggle. The terracotta accent is used for actions, links,
+   focus and selected states. Every colour is defined once per theme; tests/contrast.test.ts checks them.
    ------------------------------------------------------------------------------------------------ */
 
 :root {
   color-scheme: light;
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --surface-2: #f1f5f9;
-  --surface-3: #e2e8f0;
-  --line: #e2e8f0;
-  --line-strong: #cbd5e1;
-  --fg: #111827;
-  --muted: #374151;
-  --subtle: #4b5563;
-  --accent: #4f46e5;
-  --accent-solid: #4f46e5;
-  --accent-solid-hover: #4338ca;
-  --accent-soft: #eef2ff;
-  --accent-line: rgb(79 70 229 / 0.4);
-  --faint: #64748b;
-  --on-accent: #ffffff;
-  --cyan: #0e7490;
+  --bg: #f6f1ea;
+  --surface: #fffdf9;
+  --surface-2: #f1e8df;
+  --surface-3: #e7ddd2;
+  --line: #dccfc2;
+  --line-strong: #c8b3a2;
+  --fg: #1c1816;
+  --muted: #5a4d45;
+  --subtle: #6b5d52;
+  --accent: #8d4a2d;
+  --accent-solid: #a85d3d;
+  --accent-solid-hover: #945735;
+  --accent-soft: #f6e5db;
+  --accent-line: rgb(168 93 61 / 0.35);
+  --faint: #85756c;
+  --on-accent: #fffaf6;
+  --cyan: #0d5d6b;
   --cyan-soft: rgb(14 107 119 / 0.08);
-  --success: #157a3a;
+  --success: #14613a;
   --success-soft: rgb(21 122 58 / 0.08);
   --warning: #9a5807;
   --warning-soft: rgb(154 88 7 / 0.08);
   --danger: #b4233c;
   --danger-soft: rgb(180 35 60 / 0.06);
-  --code-bg: #111827;
-  --code-fg: #e2e8f0;
-  --brand-1: #3549d8;
-  --brand-2: #5568e0;
-  --brand-3: #0e7fb8;
-  --brand-4: #c9851a;
-  --brand-5: #0f8a7e;
-  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.04);
-  --shadow-md: 0 1px 2px rgb(15 23 42 / 0.04), 0 10px 24px -14px rgb(15 23 42 / 0.14);
-  --shadow-lg: 0 1px 2px rgb(25 34 53 / 0.05), 0 24px 48px -24px rgb(25 34 53 / 0.22);
-  --glass-line: rgb(25 34 53 / 0.09);
-  --glass-highlight: rgb(255 255 255 / 0.7);
-  --glow: rgb(53 73 216 / 0.3);
+  --code-bg: #1f1a17;
+  --code-fg: #f3eadf;
+  --brand-1: #b36a48;
+  --brand-2: #d68c6b;
+  --brand-3: #9f7b62;
+  --brand-4: #d5ab69;
+  --brand-5: #6b8d7f;
+  --shadow-sm: 0 1px 2px rgb(28 24 22 / 0.04), 0 1px 3px rgb(28 24 22 / 0.05);
+  --shadow-md: 0 1px 2px rgb(28 24 22 / 0.05), 0 12px 28px -18px rgb(28 24 22 / 0.2);
+  --shadow-lg: 0 1px 2px rgb(28 24 22 / 0.05), 0 22px 48px -26px rgb(28 24 22 / 0.24);
+  --glass-line: rgb(28 24 22 / 0.09);
+  --glass-highlight: rgb(255 255 255 / 0.75);
+  --glow: rgb(168 93 61 / 0.28);
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b1020;
-  --surface: #131d31;
-  --surface-2: #10182a;
-  --surface-3: #1a2640;
-  --line: #222d45;
-  --line-strong: #33405e;
-  --fg: #f5f7fc;
-  --muted: #a3adc2;
-  --subtle: #8f9ab0;
-  /* #4776f5 is the brand accent (borders, focus, highlights); text uses a lighter tint and buttons a deeper one,
-     because white on #4776f5 is only 4.1:1. */
-  --accent: #8da9ff;
-  --accent-solid: #3d6bea;
-  --accent-solid-hover: #3560dc;
-  --accent-soft: rgb(71 118 245 / 0.16);
-  --accent-line: rgb(121 143 255 / 0.7);
-  --faint: #8f9ab0;
-  --on-accent: #ffffff;
-  --cyan: #67d4e8;
-  --cyan-soft: rgb(103 212 232 / 0.08);
-  --success: #4ade80;
-  --success-soft: rgb(74 222 128 / 0.12);
-  --warning: #fbbf24;
-  --warning-soft: rgb(251 191 36 / 0.1);
-  --danger: #fb7185;
-  --danger-soft: rgb(251 113 133 / 0.1);
-  --code-bg: #070b16;
-  --code-fg: #e2e8f0;
-  --brand-1: #4776f5;
-  --brand-2: #7c9bff;
-  --brand-3: #5fa8f5;
-  --brand-4: #a9b8ff;
-  --brand-5: #4fc3d6;
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
-  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.55);
-  --shadow-lg: 0 1px 2px rgb(0 0 0 / 0.3), 0 24px 56px -28px rgb(0 0 0 / 0.7);
+  --bg: #171310;
+  --surface: #201b19;
+  --surface-2: #261f1d;
+  --surface-3: #2d2623;
+  --line: #3a302d;
+  --line-strong: #564a44;
+  --fg: #f6efe8;
+  --muted: #d2bca8;
+  --subtle: #c1ab96;
+  --accent: #dd8d63;
+  --accent-solid: #c96d43;
+  --accent-solid-hover: #c06d44;
+  --accent-soft: rgb(221 141 99 / 0.12);
+  --accent-line: rgb(221 141 99 / 0.55);
+  --faint: #baa491;
+  --on-accent: #1c1816;
+  --cyan: #7cc6d6;
+  --cyan-soft: rgb(124 198 214 / 0.08);
+  --success: #8ad7a3;
+  --success-soft: rgb(138 215 163 / 0.12);
+  --warning: #efc46a;
+  --warning-soft: rgb(239 196 106 / 0.12);
+  --danger: #f6a1a8;
+  --danger-soft: rgb(246 161 168 / 0.1);
+  --code-bg: #110f0d;
+  --code-fg: #f4eadb;
+  --brand-1: #d38b66;
+  --brand-2: #f1b17d;
+  --brand-3: #bb8a71;
+  --brand-4: #d9bf7b;
+  --brand-5: #8ca88d;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.34);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.34), 0 14px 30px -18px rgb(0 0 0 / 0.65);
+  --shadow-lg: 0 1px 2px rgb(0 0 0 / 0.34), 0 24px 56px -28px rgb(0 0 0 / 0.8);
   --glass-line: rgb(255 255 255 / 0.09);
   --glass-highlight: rgb(255 255 255 / 0.04);
-  --glow: rgb(71 118 245 / 0.4);
+  --glow: rgb(221 141 99 / 0.3);
 }
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
@@ -132,7 +130,7 @@
   --color-ink-line-strong: rgb(255 255 255 / 0.3);
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading);
   --font-mono: var(--font-code), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
   --shadow-sm: var(--shadow-sm);
@@ -199,8 +197,8 @@
       background-color 200ms,
       color 200ms;
     background:
-      radial-gradient(circle at top left, rgb(124 155 255 / 0.15), transparent 24%),
-      radial-gradient(circle at right center, rgb(95 168 245 / 0.12), transparent 22%),
+      radial-gradient(circle at top left, rgb(203 128 94 / 0.15), transparent 20%),
+      radial-gradient(circle at right center, rgb(164 123 82 / 0.1), transparent 22%),
       var(--bg);
     color: var(--fg);
     font-size: 1rem;
@@ -216,13 +214,21 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background-image: linear-gradient(rgb(255 255 255 / 0.02), rgb(255 255 255 / 0));
-    mask-image: radial-gradient(circle at center, black 20%, transparent 85%);
-    opacity: 0.7;
+    background-image: linear-gradient(rgb(255 255 255 / 0.06), rgb(255 255 255 / 0));
+    mask-image: radial-gradient(circle at center, black 22%, transparent 85%);
+    opacity: 0.8;
   }
   ::selection {
-    background: rgb(71 118 245 / 0.3);
+    background: color-mix(in srgb, var(--accent) 30%, transparent);
     color: var(--fg);
+  }
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a:active,
+  button:not(:disabled):not([aria-disabled="true"]):active {
+    opacity: 0.76;
   }
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -233,7 +239,7 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-heading), var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-display), var(--font-body), ui-sans-serif, system-ui, sans-serif;
     letter-spacing: -0.02em;
     line-height: 1.2;
     font-weight: 600;
