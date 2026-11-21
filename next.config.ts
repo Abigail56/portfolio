@@ -15,6 +15,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (vercel ? `https://${vercel}
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: { agentUpgrade: "security" },
   env: { SITE_URL: siteUrl.replace(/\/$/, "") },
   poweredByHeader: false,
   images: {
