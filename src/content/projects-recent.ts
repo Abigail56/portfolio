@@ -7,23 +7,36 @@ export const fleetpulse: Project = {
   slug: "fleetpulse",
   name: "FleetPulse",
   discipline: "Multi-tenant fleet management SaaS",
-  tagline: "Vehicles, drivers, trips, maintenance and costs in one multi-tenant platform.",
+  tagline: "One connected view for vehicles, journeys, operations and costs.",
   summary:
-    "A multi-tenant fleet management platform: GPS tracking and a live map, trips and dispatch, geofences and alerts, maintenance, fuel and expenses, inspections, reports and billing. Built and tested locally; it has not run in production.",
+    "FleetPulse is a multi-tenant fleet management SaaS for vehicles, drivers, GPS tracking, trips, geofences, maintenance, costs and compliance. It is built and tested locally, but it has not run in production.",
   category: "full-stack",
   kind: "product",
-  status: "in-development",
+  status: "live",
   period: "2026",
   accent: "#6fcfc4",
   monogram: "FP",
   featured: true,
-  links: { repo: "https://github.com/Abigail56/fleetpulse" },
+  links: {
+    live: "https://chinecherem-hp-elitebook-840-g4.taile59d7a.ts.net/fleetpulse-preview",
+    repo: "https://github.com/Abigail56/fleetpulse",
+  },
   screenshot: {
     desktop: "/projects/fleetpulse.jpg",
-    mobile: "/projects/fleetpulse-mobile.jpg",
-    alt: "FleetPulse landing page: 'Every Vehicle. Every Journey. Under Control.' beside a live fleet panel labelled as simulated demo data.",
-    capturedFrom: "a local production build (signed-out landing page; the fleet panel shows labelled, simulated data and a simplified map)",
-    backdrop: "#0d1b1c",
+    gallery: [
+      {
+        src: "/projects/fleetpulse-features.jpg",
+        alt: "FleetPulse features section describing fleet visibility, fleet intelligence and operational automation",
+      },
+      {
+        src: "/projects/fleetpulse-audience.jpg",
+        alt: "FleetPulse use cases and call-to-action section for organisations that run vehicles",
+      },
+    ],
+    alt: "FleetPulse landing page with its 'Every Vehicle. Every Journey. Under Control.' headline and labelled fleet preview",
+    capturedFrom: "screen captures of the current FleetPulse marketing site",
+    backdrop: "#eef6f7",
+    fit: "contain",
   },
   stack: ["Python 3.13", "FastAPI", "SQLModel", "Alembic", "PostgreSQL 17 + PostGIS", "Redis", "Celery", "S3-compatible storage", "Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "TanStack Query", "MapLibre", "Pytest", "Vitest", "Playwright", "Docker Compose", "Caddy"],
   coreStack: ["FastAPI", "PostgreSQL + PostGIS", "Redis", "Celery", "Next.js", "MapLibre"],
@@ -86,7 +99,7 @@ export const fleetpulse: Project = {
       "Tests fail if a new table lacks grants or a row-level security policy",
     ],
     statusNote:
-      "All planned features are built and tested on one development machine. FleetPulse has never run on a real server, or with real customers, a real GPS device or a real payment.",
+      "The recruiter preview is publicly reachable and shows the running FleetPulse web app. It is not a production SaaS deployment: no real GPS vendor or payment provider is connected.",
     limitations: [
       "No GPS vendor or payment provider is connected. Positions come from a documented feed or a labelled simulator",
       "Paystack billing has only been tested against a stand-in for its server",

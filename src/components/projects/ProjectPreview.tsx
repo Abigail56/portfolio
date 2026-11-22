@@ -48,7 +48,7 @@ export function ProjectPreview({ project, sizes, eager, className, caption }: Pr
           sizes={sizes}
           loading={eager ? "eager" : "lazy"}
           fetchPriority={eager ? "high" : "auto"}
-          className="object-cover object-top"
+          className={shot.fit === "contain" ? "object-contain object-center" : "object-cover object-top"}
         />
       </div>
       {caption && <figcaption className={cn("mt-2.5 text-xs text-subtle")}>Screenshot captured from {shot.capturedFrom}.</figcaption>}

@@ -169,6 +169,17 @@ export default function CaseStudyPage({ slug }: Props) {
             Screenshots captured from {shot.capturedFrom}
             {shot.mobile ? ", at desktop and phone widths" : ""}.
           </p>
+          {shot.gallery && (
+            <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2">
+              {shot.gallery.map((image) => (
+                <figure key={image.src} className="card overflow-hidden rounded-xl p-2 shadow-md">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-surface-2">
+                    <Image src={image.src} alt={image.alt} fill sizes="(min-width: 640px) 50vw, 100vw" className={shot.fit === "contain" ? "object-contain object-center" : "object-cover object-top"} />
+                  </div>
+                </figure>
+              ))}
+            </div>
+          )}
         </Container>
       )}
 

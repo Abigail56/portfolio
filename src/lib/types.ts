@@ -36,6 +36,8 @@ export interface Note {
 export interface Screenshot {
   desktop: string;
   mobile?: string;
+  gallery?: { src: string; alt: string }[];
+  fit?: "cover" | "contain";
   alt: string;
   /** Where the capture came from, shown as a caption so visitors know it is real. */
   capturedFrom: string;
