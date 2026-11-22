@@ -3,7 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { projects } from "@/content/projects";
 import { engineeringTopics } from "@/content/engineering";
-import { skillGroups } from "@/content/profile";
+import { skillGroups, timeline } from "@/content/profile";
 import { site } from "@/config/site";
 
 const slugs = new Set(projects.map((p) => p.slug));
@@ -66,5 +66,11 @@ describe("site config", () => {
 
   it("has a dialable phone link", () => {
     expect(site.contact.phoneHref).toMatch(/^tel:\+\d{10,15}$/);
+  });
+
+  it("references the actual certification image", () => {
+    const certificate = timeline.find((entry) => entry.certificate)?.certificate;
+    expect(certificate).toBeDefined();
+    expect(existsSync(publicFile(certificate!.src))).toBe(true);
   });
 });

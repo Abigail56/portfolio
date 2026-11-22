@@ -1,31 +1,49 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useId, useRef, useState } from "react";
-import { Download, Menu, X } from "lucide-react";
-import { navItems, site } from "@/config/site";
+import { Menu, X } from "lucide-react";
+import { navItems } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
-import { AvailabilityBadge } from "./AvailabilityBadge";
 import { BrandMark } from "./BrandMark";
 import { ThemeToggle } from "./ThemeToggle";
 
-function isActive(pathname: string, href: string): boolean {
-  return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
-}
+const sectionIds = navItems.map((item) => item.href.split("#")[1] ?? "");
 
 export function SiteHeader() {
   const { pathname, events } = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const menuId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  // Close the mobile menu when navigation starts, and on Escape (returning focus to the toggle).
   useEffect(() => {
     const close = () => setMenuOpen(false);
     events.on("routeChangeStart", close);
     return () => events.off("routeChangeStart", close);
   }, [events]);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+    if (!("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible?.target instanceof HTMLElement) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-18% 0px -68% 0px", threshold: 0 },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [pathname]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -40,88 +58,80 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   return (
-    <header className="relative z-40 border-b border-line bg-bg">
-      <Container className="flex h-16 items-center gap-8">
-        <BrandMark />
-
-        <nav aria-label="Main" className="ml-auto hidden lg:block">
-          <ul className="flex items-center gap-7">
-            {[...navItems, { label: "CV", href: site.cv.viewHref }].map((item) => {
-              const active = isActive(pathname, item.href);
+    <header className="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-xl supports-[backdrop-filter]:bg-bg/75">
+      <Container className="flex min-h-16 items-center justify-center py-3">
+        <div className="flex items-center gap-1.5 rounded-xl border border-line bg-surface/90 p-1.5 shadow-[0_12px_35px_-18px_rgba(0,0,0,0.85)] backdrop-blur-xl">
+          <BrandMark />
+          <nav aria-label="Main" className="ml-1 hidden items-center gap-0.5 xl:flex">
+            {navItems.map((item) => {
+              const sectionId = item.href.split("#")[1] ?? "";
+              const active = pathname === "/" && activeSection === sectionId;
+              const href = pathname === "/" ? `#${sectionId}` : item.href;
               return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "relative text-sm font-medium tracking-[0.005em] transition-colors",
-                      active
-                        ? "text-fg after:absolute after:inset-x-0 after:-bottom-[1.5625rem] after:h-px after:bg-accent"
-                        : "text-muted hover:text-fg",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
+                <Link
+                  key={item.href}
+                  href={href}
+                  aria-current={active ? "location" : undefined}
+                  onClick={() => setActiveSection(sectionId)}
+                  className={cn(
+                    "rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-[0.06em] transition-colors",
+                    active ? "bg-accent-soft text-accent" : "text-muted hover:bg-surface-2 hover:text-fg",
+                  )}
+                >
+                  {item.label}
+                </Link>
               );
             })}
-          </ul>
-        </nav>
-
-        <div className="ml-auto flex items-center gap-2 lg:ml-0 lg:gap-3">
-          <ThemeToggle />
-          <ButtonLink href={site.cv.href} download={site.cv.fileName} size="sm" className="max-sm:w-10 max-sm:px-0">
-            <Download aria-hidden className="size-4" />
-            <span className="max-sm:sr-only">Download CV</span>
-          </ButtonLink>
-          <button
-            ref={toggleRef}
-            type="button"
-            className="inline-flex size-10 items-center justify-center rounded-lg text-fg transition-colors hover:bg-surface-2 lg:hidden"
-            aria-expanded={menuOpen}
-            aria-controls={menuId}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
-            <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
-          </button>
+          </nav>
+          <div className="ml-1 flex shrink-0 items-center gap-1.5">
+            <ThemeToggle />
+            <ButtonLink href="/contact" size="sm" className="min-h-11 px-4">
+              Let&apos;s Talk
+            </ButtonLink>
+            <button
+              ref={toggleRef}
+              type="button"
+              className="inline-flex size-11 items-center justify-center rounded-md text-fg transition-colors hover:bg-surface-2"
+              aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={menuOpen}
+              aria-controls={menuId}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
+            </button>
+          </div>
         </div>
       </Container>
 
-      <div id={menuId} hidden={!menuOpen} className="border-t border-line bg-bg lg:hidden">
-        <Container className="py-4">
+      <div id={menuId} hidden={!menuOpen} className="border-t border-line bg-bg/95 backdrop-blur-xl lg:hidden">
+        <Container className="py-3">
           <nav aria-label="Main (mobile)">
-            <ul className="divide-y divide-line">
+            <ul className="grid grid-cols-2 gap-1">
               {navItems.map((item) => {
-                const active = isActive(pathname, item.href);
+                const sectionId = item.href.split("#")[1] ?? "";
+                const active = pathname === "/" && activeSection === sectionId;
+                const href = pathname === "/" ? `#${sectionId}` : item.href;
                 return (
                   <li key={item.href}>
                     <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={cn("block py-3.5 text-base font-medium", active ? "text-fg" : "text-muted hover:text-fg")}
+                      href={href}
+                      aria-current={active ? "location" : undefined}
+                      onClick={() => {
+                        setActiveSection(sectionId);
+                        setMenuOpen(false);
+                      }}
+                      className={cn(
+                        "flex min-h-11 items-center rounded-lg px-3 text-sm font-medium transition-colors",
+                        active ? "bg-accent-soft text-accent" : "text-muted hover:bg-surface-2 hover:text-fg",
+                      )}
                     >
                       {item.label}
                     </Link>
                   </li>
                 );
               })}
-              <li>
-                <Link
-                  href={site.cv.viewHref}
-                  aria-current={isActive(pathname, site.cv.viewHref) ? "page" : undefined}
-                  className={cn("block py-3.5 text-base font-medium", isActive(pathname, site.cv.viewHref) ? "text-fg" : "text-muted hover:text-fg")}
-                >
-                  CV
-                </Link>
-              </li>
             </ul>
           </nav>
-          <ButtonLink href={site.cv.href} download={site.cv.fileName} size="lg" className="mt-3 w-full">
-            <Download aria-hidden className="size-4" />
-            Download CV (PDF)
-          </ButtonLink>
-          <AvailabilityBadge className="mb-1 mt-4" />
         </Container>
       </div>
     </header>

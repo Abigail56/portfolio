@@ -107,9 +107,12 @@ export function ContactForm() {
             <div>
               <p className="font-medium text-fg">{status.message}</p>
               <p className="mt-1 text-muted">
-                Your text is still in the form. You can also email me directly at{" "}
-                <a href={`mailto:${site.contact.email}?subject=${encodeURIComponent("Hello from your portfolio")}`} className="font-medium text-accent underline">
-                  {site.contact.email}
+                Your text is still in the form. Open a prefilled email draft instead:{" "}
+                <a
+                  href={`mailto:${site.contact.email}?subject=${encodeURIComponent(values.subject || "Hello from your portfolio")}&body=${encodeURIComponent(`${values.message}\n\nFrom: ${values.name} <${values.email}>`)}`}
+                  className="font-medium text-accent underline"
+                >
+                  Open email draft
                 </a>
                 .
               </p>

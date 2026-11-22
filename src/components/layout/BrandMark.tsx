@@ -8,11 +8,11 @@ export function BrandMark() {
     .map((part) => part[0])
     .join("");
   return (
-    <Link href="/" className="inline-flex items-center gap-3 rounded-md text-[0.9375rem] font-semibold tracking-[-0.01em] text-fg">
-      <span aria-hidden className="grid size-9 place-items-center rounded-lg border border-line-strong bg-surface-2 text-[0.8125rem] font-semibold tracking-normal text-fg">
+    <Link href="/" className="inline-flex items-center gap-2.5 rounded-md px-1.5 text-[0.875rem] font-semibold uppercase tracking-[0.08em] text-fg">
+      <span aria-hidden className="grid size-9 place-items-center rounded-md border border-accent-line bg-accent-soft text-[0.75rem] font-semibold tracking-normal text-accent">
         {initials}
       </span>
-      <span className="max-[439px]:sr-only">{site.person.name}</span>
+      <span className="pr-1 max-[439px]:hidden">{site.person.name}</span>
     </Link>
   );
 }

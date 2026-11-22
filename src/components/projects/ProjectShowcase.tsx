@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { StatusText } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
+import { cn } from "@/lib/cn";
 import type { Project } from "@/lib/types";
 import { ProjectLinks } from "./ProjectLinks";
 import { ProjectPreview } from "./ProjectPreview";
@@ -30,10 +31,11 @@ function Points({ title, items }: { title: string; items: string[] }) {
 export function ProjectShowcase({ project, index, eager }: { project: Project; index: number; eager?: boolean }) {
   const href = `/projects/${project.slug}`;
   const stack = project.coreStack ?? project.stack.slice(0, 6);
+  const reverse = index % 2 === 1;
   return (
     <article data-reveal aria-labelledby={`${project.slug}-title`} className="card card-hover overflow-hidden rounded-[1.5rem]">
       <div className="grid grid-cols-[minmax(0,1fr)] gap-7 p-5 sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-12 lg:p-10">
-        <div className="min-w-0 lg:col-span-5">
+        <div className={cn("min-w-0 lg:col-span-5", reverse ? "lg:order-2" : "lg:order-1")}>
           <p className="text-meta flex flex-wrap gap-x-3 text-subtle">
             <span className="font-mono text-accent">{String(index + 1).padStart(2, "0")}</span>
             {project.discipline}
@@ -54,7 +56,12 @@ export function ProjectShowcase({ project, index, eager }: { project: Project; i
             <ProjectLinks project={project} />
           </div>
         </div>
-        <Link href={href} tabIndex={-1} aria-hidden className="group block max-lg:order-first lg:col-span-7">
+        <Link
+          href={href}
+          tabIndex={-1}
+          aria-hidden
+          className={cn("group block max-lg:order-first lg:col-span-7", reverse ? "lg:order-1" : "lg:order-2")}
+        >
           <ProjectPreview
             project={project}
             eager={eager}
@@ -68,11 +75,11 @@ export function ProjectShowcase({ project, index, eager }: { project: Project; i
           <h4 className="text-meta font-semibold text-fg">The problem</h4>
           <p className="mt-2 text-sm leading-relaxed text-muted">{project.caseStudy.problem}</p>
         </div>
-        <Points title="Key features" items={project.features.slice(0, 3)} />
-        <Points title="My contribution" items={project.contributions.slice(0, 2)} />
+        <Points title="Key features" items={project.features.slice(0, 2)} />
+        <Points title="My contribution" items={project.contributions.slice(0, 1)} />
       </div>
       <ul className="flex flex-wrap gap-1.5 border-t border-line px-5 py-4 sm:px-8 lg:px-10" aria-label="Technologies">
-        {stack.map((tech) => (
+        {stack.slice(0, 6).map((tech) => (
           <li key={tech} className="tag">
             {tech}
           </li>

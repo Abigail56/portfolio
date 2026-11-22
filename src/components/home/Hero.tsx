@@ -1,111 +1,106 @@
-import { ArrowRight, Download, Mail, MapPin } from "lucide-react";
+"use client";
+
+import Image from "next/image";
+import type { PointerEvent } from "react";
+import { ArrowDown, FileText } from "lucide-react";
 import { site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
-import { Portrait } from "@/components/ui/Portrait";
 import { Container } from "@/components/ui/Section";
 
-const profileLink = "inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-medium text-muted transition-colors hover:text-fg";
-
 export function Hero() {
-  const capabilities = ["Frontend systems", "API design", "Product UX", "Data + tooling"];
-  const stats = [
-    { value: "5+", label: "product builds" },
-    { value: "3", label: "core stacks" },
-    { value: "100%", label: "hands-on" },
-  ];
+  function moveHeroDepth(event: PointerEvent<HTMLElement>) {
+    if (event.pointerType === "touch") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    event.currentTarget.style.setProperty("--hero-x", `${(x * 14).toFixed(1)}px`);
+    event.currentTarget.style.setProperty("--hero-y", `${(y * 10).toFixed(1)}px`);
+  }
+
+  function resetHeroDepth(event: PointerEvent<HTMLElement>) {
+    event.currentTarget.style.setProperty("--hero-x", "0px");
+    event.currentTarget.style.setProperty("--hero-y", "0px");
+  }
 
   return (
-    <section aria-labelledby="hero-title" className="border-b border-line pb-2">
-      <Container className="relative grid grid-cols-[minmax(0,1fr)] items-center gap-10 pb-14 pt-10 sm:pb-20 sm:pt-16 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:gap-16 lg:pb-24 lg:pt-20">
-        <div className="max-lg:order-2">
-          <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-subtle">
-            <span className="size-2 rounded-full bg-accent" aria-hidden />
-            Available for product roles
+    <section id="home" aria-labelledby="hero-title" onPointerMove={moveHeroDepth} onPointerLeave={resetHeroDepth} className="hero-system relative isolate min-h-[calc(100svh-4rem)] overflow-hidden border-b border-line">
+      <div aria-hidden className="hero-grid pointer-events-none absolute inset-0" />
+      <div aria-hidden className="hero-glow hero-glow-one pointer-events-none absolute" />
+      <div aria-hidden className="hero-glow hero-glow-two pointer-events-none absolute" />
+      <Container className="relative grid min-h-[calc(100svh-4rem)] items-center gap-10 py-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] lg:py-16">
+        <div className="relative z-10 max-w-[48rem]">
+          <p data-reveal className="inline-flex items-center gap-2 rounded-full border border-accent-line bg-accent-soft px-3 py-1.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.12em] text-accent">
+            <span aria-hidden className="size-1.5 rounded-full bg-accent shadow-[0_0_14px_var(--accent)]" />
+            Software · Systems · Backend
           </p>
 
-          <h1 id="hero-title" className="mt-6 text-hero text-fg">
-            <span className="font-semibold text-subtle">Hi, I&apos;m </span>
-            <span className="mt-2 block text-balance">{site.person.name}.</span>
-            <span className="mt-2 block bg-gradient-to-r from-fg via-accent to-brand-3 bg-clip-text text-transparent">
-              I build digital products
-            </span>
-            <span className="mt-2 block">that feel as sharp as they perform.</span>
+          <h1 id="hero-title" className="mt-6 text-[clamp(3.1rem,7vw,5.8rem)] leading-[0.96] font-bold tracking-[-0.06em] text-fg">
+            <span data-reveal style={{ transitionDelay: "80ms" }} className="block">Full-Stack</span>
+            <span data-reveal style={{ transitionDelay: "140ms" }} className="block text-gradient">Software Engineer</span>
           </h1>
 
-          <p className="text-subtitle mt-5 text-accent">{site.person.role}</p>
-          <p className="text-lead mt-6 max-w-[38rem] text-muted">
-            I design and develop modern web platforms, backend systems and product experiences that balance speed, clarity and long-term maintainability.
-            From UX decisions to API architecture, I help teams turn messy ideas into polished software that works in the real world.
+          <p data-reveal style={{ transitionDelay: "220ms" }} className="mt-7 max-w-[43rem] text-[clamp(1.05rem,2vw,1.25rem)] leading-8 text-muted">
+            I build scalable applications and resilient backend systems that turn ideas into reliable digital products.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-2" aria-label="Core capabilities">
-            {capabilities.map((item) => (
-              <span key={item} className="rounded-full border border-line bg-surface-2 px-2.5 py-1.5 text-[0.75rem] font-medium text-subtle">
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center">
-            <ButtonLink href="#work" size="lg" className="group">
-              View My Projects
-              <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+          <div data-reveal style={{ transitionDelay: "300ms" }} className="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:items-center">
+            <ButtonLink href="#projects" size="lg" className="group min-h-12 px-6">
+              Explore My Work
+              <ArrowDown aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-y-1" />
             </ButtonLink>
-            <ButtonLink href={site.cv.href} download={site.cv.fileName} variant="secondary" size="lg">
-              <Download aria-hidden className="size-4" />
-              Download CV
-              <span className="sr-only">({site.cv.sizeLabel})</span>
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="ghost" size="lg">
-              <Mail aria-hidden className="size-4" />
-              Contact Me
+            <ButtonLink href={site.cv.viewHref} variant="secondary" size="lg" className="min-h-12 px-5">
+              <FileText aria-hidden className="size-4" />
+              View CV
             </ButtonLink>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {stats.map((stat) => (
-              <div key={stat.label} className="soft-panel rounded-2xl px-4 py-3">
-                <p className="text-[1.35rem] font-semibold tracking-[-0.04em] text-fg">{stat.value}</p>
-                <p className="mt-1 text-[0.75rem] uppercase tracking-[0.12em] text-subtle">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-
-          <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-0" aria-label="Profiles">
-            <li>
-              <a href={site.links.github} target="_blank" rel="noopener noreferrer" className={profileLink}>
-                <GitHubIcon className="size-4" />
-                GitHub<span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
-            <li>
-              <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer" className={profileLink}>
-                <LinkedInIcon className="size-4" />
-                LinkedIn<span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
-          </ul>
+          <dl data-reveal style={{ transitionDelay: "380ms" }} className="mt-8 grid max-w-[43rem] grid-cols-3 border-y border-line py-4">
+            <div className="border-r border-line pr-4">
+              <dt className="text-[0.65rem] uppercase tracking-[0.12em] text-subtle">Selected work</dt>
+              <dd className="mt-1 text-lg font-semibold text-fg">5+ projects</dd>
+            </div>
+            <div className="border-r border-line px-4">
+              <dt className="text-[0.65rem] uppercase tracking-[0.12em] text-subtle">Core stack</dt>
+              <dd className="mt-1 text-lg font-semibold text-fg">React + Python</dd>
+            </div>
+            <div className="pl-4">
+              <dt className="text-[0.65rem] uppercase tracking-[0.12em] text-subtle">Based in</dt>
+              <dd className="mt-1 text-lg font-semibold text-fg">Nigeria</dd>
+            </div>
+          </dl>
         </div>
 
-        <figure className="relative w-full max-lg:order-1 max-lg:mx-auto max-lg:max-w-[16rem] lg:ml-auto lg:max-w-[22rem]">
-          <div className="soft-panel relative overflow-hidden rounded-[2rem] border border-line bg-surface-2/80 p-3 shadow-[0_24px_72px_-32px_rgba(0,0,0,0.75)]">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--glow),transparent_28%),radial-gradient(circle_at_bottom_right,color-mix(in_srgb,var(--brand-4)_24%,transparent),transparent_30%)]" aria-hidden />
-            <Portrait eager sizes="(min-width: 1024px) 352px, 240px" />
-            <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-t border-line pt-4">
-              <div>
-                <p className="text-[0.7rem] uppercase tracking-[0.18em] text-subtle">Location</p>
-                <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-fg">
-                  <MapPin aria-hidden className="size-3.5 text-subtle" />
-                  {site.person.location}
-                </p>
+        <div data-reveal style={{ transitionDelay: "180ms" }} className="hero-portrait-wrap relative mx-auto aspect-square w-full max-w-[34rem] lg:max-w-[38rem]" aria-label="Portrait of Chukwu Chinecherem">
+          <div aria-hidden className="hero-orbit hero-orbit-outer" />
+          <div aria-hidden className="hero-orbit hero-orbit-middle" />
+          <div aria-hidden className="hero-orbit hero-orbit-inner" />
+          <div aria-hidden className="hero-particle hero-particle-one" />
+          <div aria-hidden className="hero-particle hero-particle-two" />
+          <div aria-hidden className="hero-particle hero-particle-three" />
+          <div className="portrait-flip-wrap hero-portrait absolute left-1/2 top-1/2 size-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full">
+            <div className="portrait-flip-inner">
+              <div className="portrait-face portrait-face-front">
+                <Image src={site.photo.src ?? "/images/profile-chatgpt.jpg"} alt={site.photo.alt} fill sizes="(min-width: 1024px) 540px, 78vw" priority className="object-cover object-[50%_28%]" />
+                <div aria-hidden className="absolute inset-0 bg-[linear-gradient(145deg,transparent_48%,var(--accent-soft)_100%)]" />
               </div>
-              <div className="rounded-full border border-accent-line bg-accent-soft px-2.5 py-1 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-accent">
-                WAT
+              <div className="portrait-face portrait-face-back">
+                <Image src="/images/profile-alternate.jpg" alt="Alternate portrait of Chukwu Chinecherem" fill sizes="(min-width: 1024px) 540px, 78vw" priority className="object-cover object-[50%_28%]" />
+                <div aria-hidden className="absolute inset-0 bg-[linear-gradient(145deg,transparent_48%,var(--accent-soft)_100%)]" />
               </div>
             </div>
           </div>
-        </figure>
+          <div className="absolute bottom-[8%] right-[2%] rounded-xl border border-line bg-surface/85 px-3 py-2 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-muted shadow-lg backdrop-blur-md">
+            <span className="mr-2 inline-block size-1.5 rounded-full bg-emerald-400" />
+            Available to build
+          </div>
+        </div>
+
+        <a href="#about" aria-label="Scroll to about" className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted lg:flex">
+          Scroll to explore
+          <span className="flex h-9 w-5 items-start justify-center rounded-full border border-line pt-1.5">
+            <span className="size-1 rounded-full bg-accent motion-safe:animate-bounce" />
+          </span>
+        </a>
       </Container>
     </section>
   );

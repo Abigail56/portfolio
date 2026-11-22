@@ -145,4 +145,8 @@ export interface TimelineEntry {
   location?: string;
   period: string;
   points: string[];
+  certificate?: {
+    src: string;
+    alt: string;
+  };
 }

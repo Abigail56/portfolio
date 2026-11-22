@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { languages, timeline } from "@/content/profile";
 import type { TimelineKind } from "@/lib/types";
 
 const groups: { kind: TimelineKind; label: string }[] = [
-  { kind: "training", label: "Software engineering training" },
+  { kind: "training", label: "Certification" },
   { kind: "employment", label: "Professional experience" },
   { kind: "leadership", label: "Leadership" },
   { kind: "education", label: "Education" },
@@ -19,7 +20,8 @@ export function Experience() {
             {timeline
               .filter((entry) => entry.kind === kind)
               .map((entry) => (
-                <li key={entry.title} className="grid grid-cols-[minmax(0,1fr)] gap-x-8 gap-y-1 sm:grid-cols-[minmax(0,1fr)_auto]">
+                <li key={entry.title} className="relative grid grid-cols-[minmax(0,1fr)] gap-x-8 gap-y-1 border-l border-line pl-5 sm:grid-cols-[minmax(0,1fr)_auto]">
+                  <span aria-hidden className="absolute -left-[5px] top-2 size-2 rounded-full bg-accent ring-4 ring-bg" />
                   <div className="min-w-0">
                     <h4 className="text-card text-fg">{entry.title}</h4>
                     <p className="mt-0.5 text-sm text-muted">
@@ -34,6 +36,29 @@ export function Experience() {
                         <li key={point}>{point}</li>
                       ))}
                     </ul>
+                  )}
+                  {entry.certificate && (
+                    <figure className="mt-4 max-w-[42rem] sm:col-span-2">
+                      <a
+                        href={entry.certificate.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="View AfricaPlan Hackathon 2026 certificate at full size (opens in a new tab)"
+                        className="group block overflow-hidden rounded-xl border border-line bg-surface-2 focus-visible:outline-offset-4"
+                      >
+                        <Image
+                          src={entry.certificate.src}
+                          alt={entry.certificate.alt}
+                          width={1280}
+                          height={905}
+                          sizes="(min-width: 1024px) 672px, 100vw"
+                          className="h-auto w-full transition-transform duration-300 group-hover:scale-[1.01]"
+                        />
+                      </a>
+                      <figcaption className="text-meta mt-2 text-subtle">
+                        AfricaPlan Hackathon 2026 · Certificate of Achievement
+                      </figcaption>
+                    </figure>
                   )}
                 </li>
               ))}

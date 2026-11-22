@@ -9,19 +9,19 @@ export const site = {
    */
   url: process.env.SITE_URL || null,
   description:
-    "Chukwu Chinecherem is a junior full-stack developer in Port Harcourt, Nigeria, building responsive web applications, APIs and backend systems with React, Next.js, TypeScript, Python, FastAPI and PostgreSQL.",
+    "Full-Stack Software Engineer based in Port Harcourt, Nigeria, building responsive, secure and scalable digital solutions with React, Next.js, TypeScript, Python, FastAPI and PostgreSQL.",
   person: {
     name: "Chukwu Chinecherem",
     firstName: "Chinecherem",
-    role: "Junior Full-Stack Developer",
+    role: "Full-Stack Software Engineer",
     location: "Port Harcourt, Nigeria",
     timezone: "WAT (UTC+1)",
   },
   // Set to false to hide the availability indicator in the navigation and on the contact page.
-  openToOpportunities: false,
+  openToOpportunities: true,
   coreTechnologies: ["React", "Next.js", "TypeScript", "Python", "FastAPI", "PostgreSQL"],
   contact: {
-    email: "chinecheremchukwu15@gmail.com",
+    email: "chukwuabigail307@gmail.com",
     phoneDisplay: "+234 906 046 1720",
     phoneHref: "tel:+2349060461720",
   },
@@ -32,7 +32,7 @@ export const site = {
   // Portrait shown on the home and About pages. Put the photo in public/images/ and set `src`;
   // while `src` is null a monogram is shown instead. A 4:5 portrait of at least 800×1000 px works best.
   photo: {
-    src: "/images/profile.jpg" as string | null,
+    src: "/images/profile-chatgpt.jpg" as string | null,
     alt: "Portrait of Chukwu Chinecherem",
   },
   cv: {
@@ -51,12 +51,18 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Interactive Lab", href: "/playground" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 /** Secondary pages, linked from the footer only. */
-export const footerExtras: NavItem[] = [{ label: "Engineering notes", href: "/engineering" }];
+export const footerExtras: NavItem[] = [
+  { label: "Services", href: "/services" },
+  { label: "Blog", href: "/blog" },
+  { label: "Interactive Lab", href: "/playground" },
+  { label: "Engineering notes", href: "/engineering" },
+  { label: "View CV", href: "/cv" },
+];

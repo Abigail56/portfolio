@@ -39,7 +39,7 @@ export default function ContactPage() {
         title="Let's talk"
         lead={
           site.openToOpportunities
-            ? "I'm open to software engineering internships and junior developer roles, and glad to hear from engineering teams and collaborators. The form and my email reach the same inbox."
+            ? "I’m open to full-time, contract and consulting opportunities, as well as collaborations with teams building meaningful software. The form and my email reach the same inbox."
             : "Email is the quickest way to reach me; the form sends to the same inbox."
         }
       />

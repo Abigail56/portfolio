@@ -29,7 +29,7 @@ async function icons() {
   await writeFile(pub("favicon.ico"), Buffer.concat([header, entry, png32]));
 
   // Apple touch icons should not be transparent; the mark's square already fills the canvas.
-  await sharp(svg, { density: 1200 }).resize(180, 180).flatten({ background: "#3549d8" }).png().toFile(pub("apple-touch-icon.png"));
+  await sharp(svg, { density: 1200 }).resize(180, 180).flatten({ background: "#080b12" }).png().toFile(pub("apple-touch-icon.png"));
 }
 
 async function ogImage() {
@@ -39,23 +39,23 @@ async function ogImage() {
     fontData[f] = `data:font/woff2;base64,${(await readFile(path.join(root, "src", "fonts", f))).toString("base64")}`;
   }
   const font = (f) => fontData[f];
-  const photo = `data:image/jpeg;base64,${(await readFile(pub("images/profile.jpg"))).toString("base64")}`;
+  const photo = `data:image/jpeg;base64,${(await readFile(pub("images/profile-chatgpt.jpg"))).toString("base64")}`;
   const html = `<!doctype html><html><head><style>
     @font-face { font-family: Body; src: url(${font("Inter-latin.woff2")}); font-weight: 100 900; }
     * { margin: 0; box-sizing: border-box; }
-    body { width: 1200px; height: 630px; background: #0b1020; color: #f5f7fc; font-family: Body; display: flex; overflow: hidden; position: relative; }
+    body { width: 1200px; height: 630px; background: #080b12; color: #f8fafc; font-family: Body; display: flex; overflow: hidden; position: relative; }
     .text { padding: 84px 0 76px 88px; display: flex; flex-direction: column; width: 770px; }
-    .hello { font-size: 24px; font-weight: 600; letter-spacing: -.005em; }
-    .hello span { color: #7c9bff; font-weight: 500; }
-    h1 { font-size: 62px; line-height: 1.06; letter-spacing: -.04em; margin-top: 30px; font-weight: 620; }
-    p { margin-top: auto; font-size: 24px; color: #a3adc2; }
+    .hello { font-size: 20px; font-weight: 600; letter-spacing: .14em; }
+    .hello span { color: #38bdf8; font-weight: 600; }
+    h1 { font-size: 64px; line-height: 1.06; letter-spacing: -.045em; margin-top: 30px; font-weight: 700; }
+    p { margin-top: auto; font-size: 23px; color: #94a3b8; }
     .photo { position: absolute; right: 88px; top: 84px; width: 300px; height: 375px; border-radius: 16px; padding: 6px;
-      background: #131d31; border: 1px solid #33405e; }
+      background: #111827; border: 1px solid #263448; }
     .photo div { width: 100%; height: 100%; border-radius: 11px; background: url(${photo}) center/cover; }
   </style></head><body>
     <div class="text">
-      <div class="hello"><span>Junior Full-Stack Developer</span></div>
-      <h1>Hi, I'm Chukwu Chinecherem.</h1>
+      <div class="hello"><span>FULL-STACK SOFTWARE ENGINEER</span></div>
+      <h1>CHUKWU<br>CHINECHEREM</h1>
       <p>Port Harcourt, Nigeria · React, Next.js, TypeScript, Python, FastAPI, PostgreSQL</p>
     </div>
     <div class="photo"><div></div></div>

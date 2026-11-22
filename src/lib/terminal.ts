@@ -65,7 +65,7 @@ const commands: CommandSpec[] = [
         line(`${site.person.name}, ${site.person.role}`, "accent"),
         line(`Based in ${site.person.location}.`),
         line("I build full-stack products: database schemas, the APIs around them, and the interfaces people use."),
-        line("Currently a software engineering trainee with the Africa Plan Foundation."),
+        line("Completed the AfricaPlan Hackathon 2026, earning a Certificate of Achievement from AfricaPlan Foundation."),
         line(site.openToOpportunities ? "Status: open to opportunities." : "", "success"),
       ].filter((l) => l.text !== ""),
     }),

@@ -10,7 +10,8 @@ export function ScrollReveal() {
   const { asPath } = useRouter();
 
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-visible)"));
+    const selector = "[data-reveal]:not(.is-visible)";
+    const elements = Array.from(document.querySelectorAll<HTMLElement>(selector));
     if (!("IntersectionObserver" in window)) {
       elements.forEach((el) => el.classList.add("is-visible"));
       return;
@@ -27,7 +28,22 @@ export function ScrollReveal() {
       { rootMargin: "0px 0px -6% 0px", threshold: 0.08 },
     );
     elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!(node instanceof HTMLElement)) continue;
+          if (node.matches(selector)) observer.observe(node);
+          node.querySelectorAll<HTMLElement>(selector).forEach((el) => observer.observe(el));
+        }
+      }
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
   }, [asPath]);
 
   return null;
